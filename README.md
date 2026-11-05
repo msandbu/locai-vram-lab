@@ -1,8 +1,8 @@
 # LOCAI // Local VRAM Lab ⚡
 
-[![Live Site](https://img.shields.io/badge/Live%20Site-locai--vram--lab.workers.dev-teal?style=flat-square)](https://locai-vram-lab.msandbu.workers.dev)
+[![Live Site](https://img.shields.io/badge/Live%20Site-locai.msandbu.org-teal?style=flat-square)](https://locai.msandbu.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Cloudflare Workers](https://img.shields.io/badge/Hosted%20on-Cloudflare-F38020?style=flat-square&logo=cloudflare)](https://locai-vram-lab.msandbu.workers.dev)
+[![Cloudflare](https://img.shields.io/badge/Hosted%20on-Cloudflare-F38020?style=flat-square&logo=cloudflare)](https://locai.msandbu.org)
 
 > **Independent Local AI Hardware Sizing, VRAM Calculation & Performance Matrix**  
 > Helps developers, ML engineers, and self-hosters determine which open-weights LLMs can run on their GPUs, compare coding and reasoning capabilities, understand KV cache VRAM scaling, and choose the right quantization precision.
@@ -10,7 +10,8 @@
 ---
 
 ## 🌐 Live Service
-**[https://locai-vram-lab.msandbu.workers.dev](https://locai-vram-lab.msandbu.workers.dev)**
+- **Primary Domain:** **[https://locai.msandbu.org](https://locai.msandbu.org)**
+- **Workers Fallback:** [https://locai-vram-lab.msandbu.workers.dev](https://locai-vram-lab.msandbu.workers.dev)
 
 ---
 
