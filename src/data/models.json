@@ -1,0 +1,1435 @@
+[
+  {
+    "id": "granite-4-2-3b",
+    "name": "Granite 4.2 3B",
+    "creator": "IBM",
+    "creatorColor": "#0f62fe",
+    "releaseDate": "2026-08",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 3.0,
+    "activeParamsB": 3.0,
+    "sizeTier": "tiny",
+    "reasoning": true,
+    "contextWindowK": 131,
+    "intelligenceScore": 5,
+    "codingScore": 44,
+    "codingBreakdown": {
+      "liveCodeBench": 36,
+      "sweBenchVerified": 28,
+      "aiderPolyglot": 38
+    },
+    "recommendedQuant": "Q8_0",
+    "weightsGbByQuant": {
+      "q2": 1.2,
+      "q3": 1.6,
+      "q4": 2.0,
+      "q6": 2.6,
+      "q8": 3.3,
+      "bf16": 6.1
+    },
+    "kvPer32kGb": 0.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/tiny",
+      "huggingFace": "https://huggingface.co/ibm-granite"
+    },
+    "runCommand": "llama-server -hf unsloth/granite-4.2-3b-GGUF:Q8_0 -c 32768",
+    "notes": "Top-ranked Tiny (≤4B) model on intelligence benchmarks. Small enough to run lossless Q8_0 on any 6GB–8GB laptop GPU."
+  },
+  {
+    "id": "nemotron-3-nano-4b",
+    "name": "Nemotron 3 Nano 4B",
+    "creator": "NVIDIA",
+    "creatorColor": "#76b900",
+    "releaseDate": "2026-06",
+    "license": "NVIDIA Open",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 4.0,
+    "activeParamsB": 4.0,
+    "sizeTier": "tiny",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 4,
+    "codingScore": 46,
+    "codingBreakdown": {
+      "liveCodeBench": 39,
+      "aiderPolyglot": 40
+    },
+    "recommendedQuant": "UD-Q6_K_XL",
+    "weightsGbByQuant": {
+      "q2": 1.6,
+      "q3": 2.1,
+      "q4": 2.6,
+      "q6": 3.4,
+      "q8": 4.3,
+      "bf16": 8.1
+    },
+    "kvPer32kGb": 0.7,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/tiny",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/nvidia"
+    },
+    "runCommand": "llama-server -hf unsloth/Nemotron-3-Nano-4B-GGUF:UD-Q6_K_XL -c 32768",
+    "notes": "Hybrid Mamba-Transformer edge architecture with tiny KV cache growth, great for fast local autocomplete on 8GB GPUs."
+  },
+  {
+    "id": "qwen3-5-4b",
+    "name": "Qwen3.5 4B (Reasoning)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-05",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 4.0,
+    "activeParamsB": 4.0,
+    "sizeTier": "tiny",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 6,
+    "codingScore": 52,
+    "codingBreakdown": {
+      "liveCodeBench": 45,
+      "sweBenchVerified": 32,
+      "aiderPolyglot": 44
+    },
+    "recommendedQuant": "UD-Q6_K_XL",
+    "weightsGbByQuant": {
+      "q2": 1.6,
+      "q3": 2.1,
+      "q4": 2.6,
+      "q6": 3.5,
+      "q8": 4.4,
+      "bf16": 8.2
+    },
+    "kvPer32kGb": 0.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/tiny",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.5-4B-GGUF:UD-Q6_K_XL -c 32768",
+    "notes": "Punchiest sub-4B coding and math assistant; fits comfortably in 6GB–8GB VRAM even at near-lossless 6-bit or 8-bit."
+  },
+  {
+    "id": "qwen3-8b",
+    "name": "Qwen3 8B (Reasoning)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2025-11",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 8.2,
+    "activeParamsB": 8.2,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 128,
+    "intelligenceScore": 9,
+    "codingScore": 61,
+    "codingBreakdown": {
+      "liveCodeBench": 54,
+      "sweBenchVerified": 41,
+      "aiderPolyglot": 53
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 3.2,
+      "q3": 4.1,
+      "q4": 5.1,
+      "q6": 6.8,
+      "q8": 8.7,
+      "bf16": 16.4
+    },
+    "kvPer32kGb": 1.4,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth/Qwen3-8B-GGUF",
+      "huggingFace": "https://huggingface.co/Qwen/Qwen3-8B"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3-8B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Reliable 8GB VRAM workhorse. Fits RTX 4060 / 3070 at Q4 with 32K context, or runs lossless Q8_0 on 12GB–16GB GPUs."
+  },
+  {
+    "id": "gemma-4-12b",
+    "name": "Gemma 4 12B",
+    "creator": "Google",
+    "creatorColor": "#4285f4",
+    "releaseDate": "2026-06",
+    "license": "Gemma Open",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 12.2,
+    "activeParamsB": 12.2,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 13,
+    "codingScore": 68,
+    "codingBreakdown": {
+      "liveCodeBench": 61,
+      "sweBenchVerified": 49,
+      "aiderPolyglot": 62
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 4.7,
+      "q3": 6.1,
+      "q4": 7.6,
+      "q6": 10.2,
+      "q8": 13.0,
+      "bf16": 24.4
+    },
+    "kvPer32kGb": 1.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/google"
+    },
+    "runCommand": "llama-server -hf unsloth/gemma-4-12b-it-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Sweet spot for 12GB and 16GB consumer cards (RTX 4070 / 4060 Ti 16GB) with strong multimodal and frontend code generation."
+  },
+  {
+    "id": "qwen3-coder-14b",
+    "name": "Qwen3.5 Coder 14B",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-04",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 14.8,
+    "activeParamsB": 14.8,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 14,
+    "codingScore": 75,
+    "codingBreakdown": {
+      "liveCodeBench": 69,
+      "sweBenchVerified": 58,
+      "aiderPolyglot": 71
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 5.6,
+      "q3": 7.3,
+      "q4": 9.1,
+      "q6": 12.3,
+      "q8": 15.7,
+      "bf16": 29.6
+    },
+    "kvPer32kGb": 1.9,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.5-Coder-14B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Purpose-trained for repo editing and IDE agents; fits cleanly on 12GB (tight) or 16GB GPUs with generous KV cache room."
+  },
+  {
+    "id": "gpt-oss-20b",
+    "name": "gpt-oss-20b",
+    "creator": "OpenAI",
+    "creatorColor": "#10a37f",
+    "releaseDate": "2025-08",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 21.0,
+    "activeParamsB": 3.6,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 131,
+    "intelligenceScore": 12,
+    "codingScore": 67,
+    "codingBreakdown": {
+      "liveCodeBench": 63,
+      "sweBenchVerified": 48,
+      "aiderPolyglot": 59
+    },
+    "recommendedQuant": "MXFP4 / Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 8.4,
+      "q3": 10.6,
+      "q4": 12.8,
+      "q6": 17.2,
+      "q8": 22.0,
+      "bf16": 42.0
+    },
+    "kvPer32kGb": 1.1,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth/gpt-oss-20b-GGUF",
+      "huggingFace": "https://huggingface.co/openai/gpt-oss-20b"
+    },
+    "runCommand": "llama-server -hf unsloth/gpt-oss-20b-GGUF:Q4_K_XL -c 32768",
+    "notes": "Native MXFP4-trained MoE (3.6B active). Screams past 180+ tok/s on a single 16GB RTX 4080/5070 Ti."
+  },
+  {
+    "id": "devstral-small-2-24b",
+    "name": "Devstral Small 2 24B",
+    "creator": "Mistral",
+    "creatorColor": "#fa520f",
+    "releaseDate": "2026-04",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 24.0,
+    "activeParamsB": 24.0,
+    "sizeTier": "small",
+    "reasoning": false,
+    "contextWindowK": 256,
+    "intelligenceScore": 15,
+    "codingScore": 79,
+    "codingBreakdown": {
+      "liveCodeBench": 71,
+      "sweBenchVerified": 68,
+      "aiderPolyglot": 76
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 9.0,
+      "q3": 11.4,
+      "q4": 14.3,
+      "q6": 19.8,
+      "q8": 25.5,
+      "bf16": 48.0
+    },
+    "kvPer32kGb": 2.1,
+    "sources": {
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/mistralai"
+    },
+    "runCommand": "llama-server -hf unsloth/Devstral-Small-2-24B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Mistral's dedicated SWE-agent model (~14.3 GB Q4 file). Fits 16GB GPUs with Q3/IQ4_XS or 24GB GPUs comfortably with 32K–64K repo context."
+  },
+  {
+    "id": "qwen3-8-27b",
+    "name": "Qwen3.8 27B (Xhigh)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 27.0,
+    "activeParamsB": 27.0,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 20,
+    "codingScore": 84,
+    "codingBreakdown": {
+      "aaCodingIndex": 82,
+      "liveCodeBench": 79,
+      "sweBenchVerified": 69,
+      "aiderPolyglot": 81
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 10.0,
+      "q3": 13.1,
+      "q4": 16.8,
+      "q6": 24.5,
+      "q8": 31.0,
+      "bf16": 56.0
+    },
+    "kvPer32kGb": 2.4,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Single-24GB GPU champion. Unsloth UD-Q4_K_XL weights take ~16.8 GB, fitting RTX 3090/4090 cleanly with 32K–64K context."
+  },
+  {
+    "id": "glm-4-7-flash-30b",
+    "name": "GLM-4.7 Flash 30B-A3B",
+    "creator": "Z.ai",
+    "creatorColor": "#7c3aed",
+    "releaseDate": "2026-05",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 30.0,
+    "activeParamsB": 3.2,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 200,
+    "intelligenceScore": 16,
+    "codingScore": 77,
+    "codingBreakdown": {
+      "liveCodeBench": 72,
+      "sweBenchVerified": 63,
+      "aiderPolyglot": 74
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 10.8,
+      "q3": 13.9,
+      "q4": 17.2,
+      "q6": 24.4,
+      "q8": 31.8,
+      "bf16": 60.0
+    },
+    "kvPer32kGb": 1.2,
+    "sources": {
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/zai-org"
+    },
+    "runCommand": "llama-server -hf unsloth/GLM-4.7-Flash-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Fast sparse MoE (3.2B active) with clean MIT license; fits 24GB VRAM natively or 12GB–16GB cards using --n-cpu-moe offloading."
+  },
+  {
+    "id": "muse-glimmer-30b",
+    "name": "Muse Glimmer 30B",
+    "creator": "Meta",
+    "creatorColor": "#0668e1",
+    "releaseDate": "2026-09",
+    "license": "Meta Open",
+    "licensePermissive": false,
+    "architecture": "Dense",
+    "totalParamsB": 30.0,
+    "activeParamsB": 30.0,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 131,
+    "intelligenceScore": 14,
+    "codingScore": 76,
+    "codingBreakdown": {
+      "liveCodeBench": 70,
+      "sweBenchVerified": 64,
+      "aiderPolyglot": 73
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 11.2,
+      "q3": 14.5,
+      "q4": 18.2,
+      "q6": 25.8,
+      "q8": 32.2,
+      "bf16": 60.0
+    },
+    "kvPer32kGb": 2.3,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "huggingFace": "https://huggingface.co/facebook"
+    },
+    "runCommand": "llama-server -hf unsloth/Muse-Glimmer-30B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Meta's compact multimodal & agentic sibling to Muse Spark Open; fits 24GB RTX 3090/4090 and 32GB RTX 5090."
+  },
+  {
+    "id": "qwen3-30b-a3b",
+    "name": "Qwen3 Coder 30B-A3B",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-03",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 30.5,
+    "activeParamsB": 3.3,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 15,
+    "codingScore": 79,
+    "codingBreakdown": {
+      "liveCodeBench": 73,
+      "sweBenchVerified": 64,
+      "aiderPolyglot": 76
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 11.4,
+      "q3": 14.5,
+      "q4": 17.7,
+      "q6": 25.1,
+      "q8": 32.5,
+      "bf16": 61.0
+    },
+    "kvPer32kGb": 1.3,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3-Coder-30B-A3B-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Only 3.3B active parameters per token! Fits a 24GB GPU or 24GB–32GB MacBook Pro while generating code at 120–200+ tok/s."
+  },
+  {
+    "id": "gemma-4-31b",
+    "name": "Gemma 4 31B",
+    "creator": "Google",
+    "creatorColor": "#4285f4",
+    "releaseDate": "2026-06",
+    "license": "Gemma Open",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 31.0,
+    "activeParamsB": 31.0,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 18,
+    "codingScore": 80,
+    "codingBreakdown": {
+      "liveCodeBench": 74,
+      "sweBenchVerified": 65,
+      "aiderPolyglot": 78
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 11.6,
+      "q3": 15.0,
+      "q4": 18.8,
+      "q6": 26.8,
+      "q8": 33.4,
+      "bf16": 62.0
+    },
+    "kvPer32kGb": 2.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/google"
+    },
+    "runCommand": "llama-server -hf unsloth/gemma-4-31b-it-GGUF:UD-Q4_K_XL -c 32768 -ctk q8_0 -ctv q8_0",
+    "notes": "Fits 24GB RTX 3090/4090 at Q4 (recommend Q8_0 KV cache for >32K context) and shines on 32GB RTX 5090."
+  },
+  {
+    "id": "nemotron-3-5-lightning",
+    "name": "Nemotron 3.5 Lightning 32B",
+    "creator": "NVIDIA",
+    "creatorColor": "#76b900",
+    "releaseDate": "2026-09",
+    "license": "NVIDIA Open",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 31.6,
+    "activeParamsB": 3.6,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 11,
+    "codingScore": 71,
+    "codingBreakdown": {
+      "liveCodeBench": 66,
+      "sweBenchVerified": 54,
+      "aiderPolyglot": 68
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 11.8,
+      "q3": 15.2,
+      "q4": 18.6,
+      "q6": 26.2,
+      "q8": 33.8,
+      "bf16": 63.2
+    },
+    "kvPer32kGb": 0.9,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "huggingFace": "https://huggingface.co/nvidia"
+    },
+    "runCommand": "llama-server -hf unsloth/Nemotron-3.5-Lightning-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "1M context hybrid Mamba-MoE (3.6B active). Ultra-tiny KV cache lets you load massive 128K+ repo contexts inside 24GB VRAM."
+  },
+  {
+    "id": "nanbeige-4-3-33b",
+    "name": "Nanbeige 4.3 33B",
+    "creator": "Nanbeige",
+    "creatorColor": "#0ea5e9",
+    "releaseDate": "2026-10",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 33.0,
+    "activeParamsB": 33.0,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 524,
+    "intelligenceScore": 20,
+    "codingScore": 81,
+    "codingBreakdown": {
+      "liveCodeBench": 77,
+      "sweBenchVerified": 64,
+      "aiderPolyglot": 76
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 12.4,
+      "q3": 16.0,
+      "q4": 19.8,
+      "q6": 28.2,
+      "q8": 35.5,
+      "bf16": 66.0
+    },
+    "kvPer32kGb": 2.7,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/small",
+      "huggingFace": "https://huggingface.co/Nanbeige"
+    },
+    "runCommand": "llama-server -hf bartowski/Nanbeige4.3-33B-GGUF:Q4_K_M -c 32768 -ctk q8_0 -ctv q8_0",
+    "notes": "Tied #1 Small dense model on general reasoning (20). Tight fit on 24GB GPUs at Q4 (use Q8 KV cache or IQ4_XS); ideal on 32GB RTX 5090."
+  },
+  {
+    "id": "qwen3-6-35b-a3b",
+    "name": "Qwen3.6 35B-A3B",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-07",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 35.0,
+    "activeParamsB": 3.0,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 18,
+    "codingScore": 82,
+    "codingBreakdown": {
+      "liveCodeBench": 77,
+      "sweBenchVerified": 67,
+      "aiderPolyglot": 79
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 13.2,
+      "q3": 17.0,
+      "q4": 21.2,
+      "q6": 29.4,
+      "q8": 38.0,
+      "bf16": 70.0
+    },
+    "kvPer32kGb": 1.1,
+    "sources": {
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Hybrid linear-attention sparse MoE (only 3B active!). Squeeze onto a single 24GB GPU at Q4 (~23GB total) or 16GB GPU at Q3 with blazing speed."
+  },
+  {
+    "id": "llama-3-3-70b",
+    "name": "Llama 3.3 70B Instruct",
+    "creator": "Meta",
+    "creatorColor": "#0668e1",
+    "releaseDate": "2024-12",
+    "license": "Llama 3.3",
+    "licensePermissive": false,
+    "architecture": "Dense",
+    "totalParamsB": 70.6,
+    "activeParamsB": 70.6,
+    "sizeTier": "medium",
+    "reasoning": false,
+    "contextWindowK": 128,
+    "intelligenceScore": 12,
+    "codingScore": 72,
+    "codingBreakdown": {
+      "liveCodeBench": 62,
+      "sweBenchVerified": 54,
+      "aiderPolyglot": 69
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 26.2,
+      "q3": 33.8,
+      "q4": 42.5,
+      "q6": 58.0,
+      "q8": 75.0,
+      "bf16": 141.2
+    },
+    "kvPer32kGb": 5.2,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth/Llama-3.3-70B-Instruct-GGUF",
+      "huggingFace": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct"
+    },
+    "runCommand": "llama-server -hf unsloth/Llama-3.3-70B-Instruct-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Classic dense 70B baseline for dual-24GB (48GB) rigs and 64GB Macs, though newer 27B–35B reasoning models beat it in half the VRAM."
+  },
+  {
+    "id": "qwen3-next-80b-a3b",
+    "name": "Qwen3 Next 80B-A3B",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-02",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 80.0,
+    "activeParamsB": 3.0,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 17,
+    "codingScore": 81,
+    "codingBreakdown": {
+      "liveCodeBench": 76,
+      "sweBenchVerified": 66,
+      "aiderPolyglot": 78
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 29.5,
+      "q3": 37.8,
+      "q4": 46.2,
+      "q6": 65.5,
+      "q8": 84.8,
+      "bf16": 160.0
+    },
+    "kvPer32kGb": 1.2,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3-Next-80B-A3B-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Ultra-sparse MoE (only 3B active out of 80B) with gated delta attention—flies on 64GB Unified Memory Macs or 48GB dual-GPU setups."
+  },
+  {
+    "id": "llama-4-scout",
+    "name": "Llama 4 Scout 109B-A17B",
+    "creator": "Meta",
+    "creatorColor": "#0668e1",
+    "releaseDate": "2025-04",
+    "license": "Llama 4",
+    "licensePermissive": false,
+    "architecture": "MoE",
+    "totalParamsB": 109.0,
+    "activeParamsB": 17.0,
+    "sizeTier": "medium",
+    "reasoning": false,
+    "contextWindowK": 1000,
+    "intelligenceScore": 13,
+    "codingScore": 70,
+    "codingBreakdown": {
+      "liveCodeBench": 61,
+      "sweBenchVerified": 52,
+      "aiderPolyglot": 66
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 40.5,
+      "q3": 51.8,
+      "q4": 63.5,
+      "q6": 89.0,
+      "q8": 115.0,
+      "bf16": 218.0
+    },
+    "kvPer32kGb": 2.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth/Llama-4-Scout-17B-16E-Instruct-GGUF",
+      "huggingFace": "https://huggingface.co/meta-llama"
+    },
+    "runCommand": "llama-server -hf unsloth/Llama-4-Scout-17B-16E-Instruct-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Multimodal long-context MoE; fits 64GB setups at Q3 or 96GB–128GB workstations comfortably at Q4."
+  },
+  {
+    "id": "gpt-oss-120b",
+    "name": "gpt-oss-120b",
+    "creator": "OpenAI",
+    "creatorColor": "#10a37f",
+    "releaseDate": "2025-08",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 117.0,
+    "activeParamsB": 5.1,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 131,
+    "intelligenceScore": 18,
+    "codingScore": 80,
+    "codingBreakdown": {
+      "liveCodeBench": 76,
+      "sweBenchVerified": 65,
+      "aiderPolyglot": 75
+    },
+    "recommendedQuant": "MXFP4 / Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 45.0,
+      "q3": 55.0,
+      "q4": 63.8,
+      "q6": 94.0,
+      "q8": 122.0,
+      "bf16": 234.0
+    },
+    "kvPer32kGb": 1.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth/gpt-oss-120b-GGUF",
+      "huggingFace": "https://huggingface.co/openai/gpt-oss-120b"
+    },
+    "runCommand": "llama-server -hf unsloth/gpt-oss-120b-GGUF:Q4_K_XL -c 32768",
+    "notes": "Native MXFP4 weights (~63.8 GB) fit a single 80GB/96GB workstation GPU, 96GB+ Mac Studio, or 24GB GPU + 64GB DDR5 with MoE expert offload."
+  },
+  {
+    "id": "mistral-small-4",
+    "name": "Mistral Small 4 (119B-A6.5B)",
+    "creator": "Mistral",
+    "creatorColor": "#fa520f",
+    "releaseDate": "2026-03",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 119.0,
+    "activeParamsB": 6.5,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 15,
+    "codingScore": 77,
+    "codingBreakdown": {
+      "liveCodeBench": 71,
+      "sweBenchVerified": 62,
+      "aiderPolyglot": 74
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 44.2,
+      "q3": 56.5,
+      "q4": 68.5,
+      "q6": 96.5,
+      "q8": 125.0,
+      "bf16": 238.0
+    },
+    "kvPer32kGb": 2.0,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/mistralai"
+    },
+    "runCommand": "llama-server -hf unsloth/Mistral-Small-4-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Clean Apache 2.0 enterprise-friendly MoE with 6.5B active parameters; snappy on 96GB–128GB Unified Memory / RTX PRO 6000."
+  },
+  {
+    "id": "nemotron-3-5-super-vl",
+    "name": "Nemotron 3.5 Super VL 120B",
+    "creator": "NVIDIA",
+    "creatorColor": "#76b900",
+    "releaseDate": "2026-09",
+    "license": "NVIDIA Open",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 120.0,
+    "activeParamsB": 12.0,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 19,
+    "codingScore": 82,
+    "codingBreakdown": {
+      "liveCodeBench": 77,
+      "sweBenchVerified": 67,
+      "aiderPolyglot": 79
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 45.0,
+      "q3": 57.2,
+      "q4": 69.8,
+      "q6": 98.0,
+      "q8": 127.0,
+      "bf16": 240.0
+    },
+    "kvPer32kGb": 1.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "huggingFace": "https://huggingface.co/nvidia"
+    },
+    "runCommand": "llama-server -hf unsloth/Nemotron-3.5-Super-VL-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Top Medium-tier multimodal & agentic MoE (120B total / 12B active) with 1M context window; prime target for 96GB–128GB workstations."
+  },
+  {
+    "id": "devstral-2-123b",
+    "name": "Devstral 2 123B",
+    "creator": "Mistral",
+    "creatorColor": "#fa520f",
+    "releaseDate": "2026-05",
+    "license": "Mistral Open",
+    "licensePermissive": false,
+    "architecture": "Dense",
+    "totalParamsB": 123.0,
+    "activeParamsB": 123.0,
+    "sizeTier": "medium",
+    "reasoning": false,
+    "contextWindowK": 256,
+    "intelligenceScore": 19,
+    "codingScore": 86,
+    "codingBreakdown": {
+      "liveCodeBench": 78,
+      "sweBenchVerified": 74,
+      "aiderPolyglot": 84
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 45.8,
+      "q3": 58.2,
+      "q4": 72.5,
+      "q6": 101.0,
+      "q8": 130.5,
+      "bf16": 246.0
+    },
+    "kvPer32kGb": 5.8,
+    "sources": {
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/mistralai"
+    },
+    "runCommand": "llama-server -hf unsloth/Devstral-2-123B-GGUF:UD-Q4_K_XL -c 32768 -ctk q8_0 -ctv q8_0",
+    "notes": "Heavyweight 123B dense software-engineering specialist; fits 96GB–128GB Unified Memory or 4x 24GB GPU rigs at Q4."
+  },
+  {
+    "id": "qwen3-5-122b-a10b",
+    "name": "Qwen3.5 122B-A10B (Reasoning)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-07",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 125.0,
+    "activeParamsB": 10.0,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 23,
+    "codingScore": 87,
+    "codingBreakdown": {
+      "aaCodingIndex": 85,
+      "liveCodeBench": 83,
+      "sweBenchVerified": 73,
+      "aiderPolyglot": 85
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 46.8,
+      "q3": 59.5,
+      "q4": 72.5,
+      "q6": 102.0,
+      "q8": 132.0,
+      "bf16": 250.0
+    },
+    "kvPer32kGb": 2.1,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.5-122B-A10B-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Sweet-spot prosumer workstation king: fits 96GB RTX PRO 6000 or 128GB Mac Studio / Strix Halo at Q4 with near-frontier coding."
+  },
+  {
+    "id": "mimo-v2-6-flash",
+    "name": "MiMo-V2.6-Flash 309B",
+    "creator": "Xiaomi",
+    "creatorColor": "#ff6900",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 309.0,
+    "activeParamsB": 18.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 512,
+    "intelligenceScore": 25,
+    "codingScore": 87,
+    "codingBreakdown": {
+      "liveCodeBench": 84,
+      "sweBenchVerified": 74,
+      "aiderPolyglot": 85
+    },
+    "recommendedQuant": "UD-IQ3_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 102.0,
+      "q3": 140.0,
+      "q4": 178.0,
+      "q6": 252.0,
+      "q8": 328.0,
+      "bf16": 618.0
+    },
+    "kvPer32kGb": 1.9,
+    "sources": {
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/XiaomiMiMo"
+    },
+    "runCommand": "llama-server -hf unsloth/MiMo-V2.6-Flash-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Xiaomi's omni-modal hybrid sliding-window MoE; fits cleanly at full 4-bit (~178 GB) on a 192GB–256GB Mac Studio or 2x DGX Spark."
+  },
+  {
+    "id": "mimo-v2-6-flash-rl",
+    "name": "MiMo-V2.6-Flash-RL",
+    "creator": "Xiaomi",
+    "creatorColor": "#ff6900",
+    "releaseDate": "2026-10",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 309.0,
+    "activeParamsB": 15.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 28,
+    "codingScore": 91,
+    "codingBreakdown": {
+      "liveCodeBench": 88,
+      "sweBenchVerified": 80,
+      "aiderPolyglot": 89
+    },
+    "recommendedQuant": "UD-IQ3_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 102.0,
+      "q3": 140.0,
+      "q4": 178.0,
+      "q6": 252.0,
+      "q8": 328.0,
+      "bf16": 618.0
+    },
+    "kvPer32kGb": 1.7,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL"
+    },
+    "runCommand": "llama-server -hf ggml-org/MiMo-V2.6-Flash-RL-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Reinforcement-learning tuned version of MiMo-V2.6 (GRPO agentic training) with 15B active weights, 1M context, and boosted coding & reasoning retention."
+  },
+  {
+    "id": "k2-horizon-375b",
+    "name": "K2 Horizon 375B-A23B",
+    "creator": "IFM",
+    "creatorColor": "#6366f1",
+    "releaseDate": "2026-08",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 375.0,
+    "activeParamsB": 23.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 524,
+    "intelligenceScore": 24,
+    "codingScore": 86,
+    "codingBreakdown": {
+      "liveCodeBench": 82,
+      "sweBenchVerified": 74,
+      "aiderPolyglot": 84
+    },
+    "recommendedQuant": "UD-IQ3_XXS / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 122.0,
+      "q3": 168.0,
+      "q4": 214.0,
+      "q6": 302.0,
+      "q8": 395.0,
+      "bf16": 750.0
+    },
+    "kvPer32kGb": 2.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source"
+    },
+    "runCommand": "llama-server -hf unsloth/K2-Horizon-375B-GGUF:UD-Q4_K_XL -c 32768",
+    "notes": "Fits a 256GB Mac Studio at full 4-bit (UD-Q4_K_XL ~214 GB) or 192GB setups at 3-bit."
+  },
+  {
+    "id": "minimax-m3-1-flash",
+    "name": "MiniMax-M3.1-Flash",
+    "creator": "MiniMax",
+    "creatorColor": "#ec4899",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 428.0,
+    "activeParamsB": 23.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 29,
+    "codingScore": 89,
+    "codingBreakdown": {
+      "aaCodingIndex": 88,
+      "liveCodeBench": 86,
+      "sweBenchVerified": 77,
+      "aiderPolyglot": 87
+    },
+    "recommendedQuant": "UD-IQ3_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 139.0,
+      "q3": 191.0,
+      "q4": 244.0,
+      "q6": 346.0,
+      "q8": 450.0,
+      "bf16": 856.0
+    },
+    "kvPer32kGb": 2.0,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://huggingface.co/unsloth"
+    },
+    "runCommand": "llama-server -hf unsloth/MiniMax-M3.1-Flash-GGUF:UD-IQ3_M -c 65536",
+    "notes": "High-intelligence 1M-context MoE; runs smoothly at Q3 (~191 GB) on a 256GB Mac Studio."
+  },
+  {
+    "id": "deepseek-v4-1-flash",
+    "name": "DeepSeek V4.1 Flash (Max)",
+    "creator": "DeepSeek",
+    "creatorColor": "#4d6bfe",
+    "releaseDate": "2026-10",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 552.0,
+    "activeParamsB": 16.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 32,
+    "codingScore": 93,
+    "codingBreakdown": {
+      "aaCodingIndex": 92,
+      "liveCodeBench": 91,
+      "sweBenchVerified": 82,
+      "aiderPolyglot": 91
+    },
+    "recommendedQuant": "UD-IQ2_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 178.0,
+      "q3": 245.0,
+      "q4": 315.0,
+      "q6": 445.0,
+      "q8": 580.0,
+      "bf16": 1104.0
+    },
+    "kvPer32kGb": 1.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/deepseek-ai"
+    },
+    "runCommand": "llama-server -hf unsloth/DeepSeek-V4.1-Flash-GGUF:UD-IQ2_M -c 65536",
+    "notes": "Ultra-sparse 552B MoE (only 16B active!) with MLA compressed KV cache. Fits 256GB Unified Memory at UD-IQ2_M (~178 GB)!"
+  },
+  {
+    "id": "ling-3-1-flash",
+    "name": "Ling 3.1 Flash 560B",
+    "creator": "InclusionAI",
+    "creatorColor": "#14b8a6",
+    "releaseDate": "2026-10",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 560.0,
+    "activeParamsB": 25.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 29,
+    "codingScore": 88,
+    "codingBreakdown": {
+      "liveCodeBench": 85,
+      "sweBenchVerified": 76,
+      "aiderPolyglot": 86
+    },
+    "recommendedQuant": "UD-IQ2_M / UD-Q3_K_XL",
+    "weightsGbByQuant": {
+      "q2": 182.0,
+      "q3": 250.0,
+      "q4": 322.0,
+      "q6": 455.0,
+      "q8": 592.0,
+      "bf16": 1120.0
+    },
+    "kvPer32kGb": 2.2,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "huggingFace": "https://huggingface.co/inclusionAI"
+    },
+    "runCommand": "llama-server -hf unsloth/Ling-3.1-Flash-GGUF:UD-IQ2_M -c 32768",
+    "notes": "560B MoE (25B active) with 1M context window; fits 256GB Mac Studio at dynamic 2-bit (~182 GB)."
+  },
+  {
+    "id": "step-5-preview",
+    "name": "Step 5 Preview 600B",
+    "creator": "StepFun",
+    "creatorColor": "#0284c7",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 600.0,
+    "activeParamsB": 27.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 29,
+    "codingScore": 88,
+    "codingBreakdown": {
+      "liveCodeBench": 85,
+      "sweBenchVerified": 77,
+      "aiderPolyglot": 86
+    },
+    "recommendedQuant": "UD-IQ2_M",
+    "weightsGbByQuant": {
+      "q2": 195.0,
+      "q3": 268.0,
+      "q4": 345.0,
+      "q6": 488.0,
+      "q8": 635.0,
+      "bf16": 1200.0
+    },
+    "kvPer32kGb": 2.4,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "huggingFace": "https://huggingface.co/stepfun-ai"
+    },
+    "runCommand": "llama-server -hf unsloth/Step-5-Preview-GGUF:UD-IQ2_M -c 32768",
+    "notes": "Vision-language & long-horizon agentic MoE (27B active); fits 256GB Unified Memory at Q2 (~195 GB) or 512GB at Q4."
+  },
+  {
+    "id": "glm-5-3-max",
+    "name": "GLM-5.3 (Max)",
+    "creator": "Z.ai",
+    "creatorColor": "#7c3aed",
+    "releaseDate": "2026-10",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 753.0,
+    "activeParamsB": 40.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 32,
+    "codingScore": 92,
+    "codingBreakdown": {
+      "aaCodingIndex": 91,
+      "liveCodeBench": 89,
+      "sweBenchVerified": 81,
+      "aiderPolyglot": 90
+    },
+    "recommendedQuant": "UD-IQ2_M",
+    "weightsGbByQuant": {
+      "q2": 239.0,
+      "q3": 325.0,
+      "q4": 420.0,
+      "q6": 595.0,
+      "q8": 810.0,
+      "bf16": 1506.0
+    },
+    "kvPer32kGb": 2.9,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/zai-org"
+    },
+    "runCommand": "llama-server -hf unsloth/GLM-5.3-GGUF:UD-IQ2_M -c 32768 -ctk q8_0 -ctv q8_0",
+    "notes": "Unsloth Dynamic 2-bit (UD-IQ2_M ~239 GB) squeezes onto a 256GB Mac Studio or 24GB GPU + 256GB DDR5 rig; 4-bit needs 512GB."
+  },
+  {
+    "id": "muse-spark-open",
+    "name": "Muse Spark Open 816B",
+    "creator": "Meta",
+    "creatorColor": "#0668e1",
+    "releaseDate": "2026-09",
+    "license": "Meta Open",
+    "licensePermissive": false,
+    "architecture": "MoE",
+    "totalParamsB": 816.0,
+    "activeParamsB": 42.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 25,
+    "codingScore": 87,
+    "codingBreakdown": {
+      "liveCodeBench": 83,
+      "sweBenchVerified": 78,
+      "aiderPolyglot": 85
+    },
+    "recommendedQuant": "UD-IQ2_M / Q4 Cluster",
+    "weightsGbByQuant": {
+      "q2": 262.0,
+      "q3": 358.0,
+      "q4": 465.0,
+      "q6": 655.0,
+      "q8": 865.0,
+      "bf16": 1632.0
+    },
+    "kvPer32kGb": 3.1,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "huggingFace": "https://huggingface.co/facebook"
+    },
+    "runCommand": "llama-server -hf unsloth/Muse-Spark-Open-GGUF:UD-IQ2_M -c 32768",
+    "notes": "Meta's 816B omni-modal flagship (42B active); fits 512GB Mac Studio Ultra at Q3/Q4 (~358–465 GB) or multi-GPU cluster."
+  },
+  {
+    "id": "kimi-k2-5",
+    "name": "Kimi K2.5 (1T-A32B)",
+    "creator": "Moonshot AI",
+    "creatorColor": "#0ea5e9",
+    "releaseDate": "2026-01",
+    "license": "Modified MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 1000.0,
+    "activeParamsB": 32.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 28,
+    "codingScore": 90,
+    "codingBreakdown": {
+      "aaCodingIndex": 89,
+      "liveCodeBench": 87,
+      "sweBenchVerified": 77,
+      "aiderPolyglot": 88
+    },
+    "recommendedQuant": "UD-Q2_K_XL / UD-TQ1_0",
+    "weightsGbByQuant": {
+      "q2": 335.0,
+      "q3": 445.0,
+      "q4": 565.0,
+      "q6": 810.0,
+      "q8": 1055.0,
+      "bf16": 2000.0
+    },
+    "kvPer32kGb": 1.9,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/moonshotai"
+    },
+    "runCommand": "llama-server -hf unsloth/Kimi-K2.5-GGUF:UD-TQ1_0 -c 32768 -ot \".ffn_.*_exps.=CPU\"",
+    "notes": "1T MoE (32B active) with MLA attention. Unsloth 1.8-bit (UD-TQ1_0 ~240 GB) runs on 256GB rigs/RAM offload; UD-Q2_K_XL (~335–375 GB) shines on 512GB Mac Studio!"
+  },
+  {
+    "id": "mimo-v2-6-pro",
+    "name": "MiMo-V2.6-Pro (1.02T)",
+    "creator": "Xiaomi",
+    "creatorColor": "#ff6900",
+    "releaseDate": "2026-10",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 1020.0,
+    "activeParamsB": 42.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 30,
+    "codingScore": 91,
+    "codingBreakdown": {
+      "aaCodingIndex": 90,
+      "liveCodeBench": 88,
+      "sweBenchVerified": 79,
+      "aiderPolyglot": 89
+    },
+    "recommendedQuant": "UD-IQ2_M / FP8 Cluster",
+    "weightsGbByQuant": {
+      "q2": 328.0,
+      "q3": 452.0,
+      "q4": 578.0,
+      "q6": 825.0,
+      "q8": 1080.0,
+      "bf16": 2040.0
+    },
+    "kvPer32kGb": 2.4,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "huggingFace": "https://huggingface.co/XiaomiMiMo"
+    },
+    "runCommand": "llama-server -hf unsloth/MiMo-V2.6-Pro-GGUF:UD-IQ2_M -c 32768",
+    "notes": "1.02T omni-modal flagship (42B active, 384 experts); fits 512GB Mac Studio Ultra at Q2/Q3 or 8x H200 cluster in FP8."
+  },
+  {
+    "id": "mistral-large-4",
+    "name": "Mistral Large 4 (1.1T)",
+    "creator": "Mistral",
+    "creatorColor": "#fa520f",
+    "releaseDate": "2026-09",
+    "license": "Mistral Research / Open",
+    "licensePermissive": false,
+    "architecture": "MoE",
+    "totalParamsB": 1100.0,
+    "activeParamsB": 52.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 26,
+    "codingScore": 88,
+    "codingBreakdown": {
+      "aaCodingIndex": 87,
+      "liveCodeBench": 84,
+      "sweBenchVerified": 76,
+      "aiderPolyglot": 86
+    },
+    "recommendedQuant": "UD-IQ2_M / FP8 Cluster",
+    "weightsGbByQuant": {
+      "q2": 345.0,
+      "q3": 475.0,
+      "q4": 615.0,
+      "q6": 875.0,
+      "q8": 1155.0,
+      "bf16": 2200.0
+    },
+    "kvPer32kGb": 3.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "huggingFace": "https://huggingface.co/mistralai"
+    },
+    "runCommand": "vllm serve mistralai/Mistral-Large-4 --tensor-parallel-size 8 --quantization fp8",
+    "notes": "1.1T frontier MoE reference point—requires 512GB Mac Studio Ultra (at 2–3 bit) or multi-GPU enterprise cluster."
+  },
+  {
+    "id": "kimi-k3",
+    "name": "Kimi K3 (2.8T-A104B)",
+    "creator": "Moonshot AI",
+    "creatorColor": "#0ea5e9",
+    "releaseDate": "2026-07",
+    "license": "Kimi Open",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 2800.0,
+    "activeParamsB": 104.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 44,
+    "codingScore": 95,
+    "codingBreakdown": {
+      "aaCodingIndex": 95,
+      "liveCodeBench": 93,
+      "sweBenchVerified": 84,
+      "aiderPolyglot": 94
+    },
+    "recommendedQuant": "UD-IQ1_M (~594G) / Native MXFP4",
+    "weightsGbByQuant": {
+      "q2": 760.0,
+      "q3": 1120.0,
+      "q4": 1560.0,
+      "q6": 2240.0,
+      "q8": 2920.0,
+      "bf16": 5600.0
+    },
+    "kvPer32kGb": 3.2,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/leaderboards/models",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/moonshotai"
+    },
+    "runCommand": "llama-server -hf unsloth/Kimi-K3-GGUF:UD-IQ1_M -c 65536 -ot \".ffn_.*_exps.=CPU\"",
+    "notes": "2.8T parameter colossus (896 experts, 104B active, Kimi Delta Attention + MLA) & #1 Open-Weight Intelligence (44). Native MXFP4 is ~1.56 TB; Unsloth Dynamic 1-bit (~594 GB) / 2-bit (~760 GB) enables multi-node Mac Studio or 1TB+ DDR5/GPU server hosting."
+  }
+]

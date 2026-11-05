@@ -1,0 +1,36 @@
+name: 🛠️ Model Benchmark or VRAM Correction
+description: Report an inaccurate benchmark score, VRAM calculation, or spec for an existing model
+title: "[Correction]: "
+labels: ["catalog-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Notice an incorrect benchmark, VRAM estimation formula drift, or outdated context window?
+        Let us know so we can fix it for everyone!
+  - type: input
+    id: model_name
+    attributes:
+      label: Model Name in Catalog
+      placeholder: "e.g. Qwen3 8B (Reasoning)"
+    validations:
+      required: true
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: What is incorrect?
+      description: Explain what data is currently inaccurate (e.g. coding score, KV cache footprint, weight size at Q4, context window).
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source / Verification Link
+      description: Provide documentation, benchmark reports (e.g. Artificial Analysis, SWE-bench), or tested GGUF sizes.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested_fix
+    attributes:
+      label: Suggested JSON Fix (optional)
+      render: json

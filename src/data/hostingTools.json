@@ -1,0 +1,405 @@
+[
+  {
+    "id": "foundry-local",
+    "name": "Foundry Local (Windows Foundry)",
+    "tagline": "Microsoft's official local AI engine and CLI with automatic NPU (Copilot+), DirectML, and CUDA acceleration.",
+    "category": "developer-cli",
+    "supportedOS": ["Windows", "macOS", "Linux"],
+    "hardwareAcceleration": "NPU (Snapdragon X, Intel Core Ultra, AMD Ryzen AI), DirectML, NVIDIA CUDA, CPU (ONNX)",
+    "modelFormats": ["ONNX", "GGUF", "Safetensors"],
+    "openAiApiCompatible": true,
+    "difficulty": "Beginner",
+    "license": "MIT",
+    "website": "https://learn.microsoft.com/en-us/windows/ai/",
+    "github": "https://github.com/microsoft/Foundry-Local",
+    "installCommands": {
+      "windows": "winget install Microsoft.FoundryLocal",
+      "macos": "brew install microsoft/foundry/foundry-local  # or via pip",
+      "linux": "curl -fsSL https://aka.ms/foundry-local-install | sh"
+    },
+    "quickStart": "foundry model run phi-3.5-mini",
+    "pros": [
+      "Official Microsoft local engine with first-class Windows NPU & DirectML support",
+      "Hardware-adaptive execution: automatically maps weights to NPU, GPU, or CPU",
+      "Integrated into AnythingLLM, VS Code AI Toolkit, and Semantic Kernel",
+      "Built-in OpenAI-compatible background daemon via `foundry service start`"
+    ],
+    "cons": [
+      "Curated catalog primarily tailored around Microsoft-optimized model checkpoints",
+      "Newer tool compared to mature ecosystems like Ollama and llama.cpp"
+    ],
+    "bestFor": "Windows 10/11 and Copilot+ PC developers wanting native NPU/DirectML acceleration and Microsoft AI integration."
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "tagline": "The de facto standard local LLM runner and background daemon with a clean CLI and REST API.",
+    "category": "developer-cli",
+    "supportedOS": ["macOS", "Windows", "Linux"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA, AMD ROCm",
+    "modelFormats": ["GGUF"],
+    "openAiApiCompatible": true,
+    "difficulty": "Beginner",
+    "license": "MIT",
+    "website": "https://ollama.com",
+    "github": "https://github.com/ollama/ollama",
+    "installCommands": {
+      "macos": "brew install ollama  # or download Ollama-darwin.zip",
+      "windows": "winget install Ollama.Ollama  # or download OllamaSetup.exe",
+      "linux": "curl -fsSL https://ollama.com/install.sh | sh"
+    },
+    "quickStart": "ollama run qwen2.5-coder:14b",
+    "pros": [
+      "Zero-config hardware detection (Metal, CUDA, ROCm auto-enabled)",
+      "Background daemon with OpenAI-compatible API on localhost:11434",
+      "Massive model library with automated quant pulling",
+      "First-class integration with Cursor, Continue.dev, Open WebUI, and LangChain"
+    ],
+    "cons": [
+      "No built-in chat GUI (requires pairing with terminal or WebUI)",
+      "Strict GGUF focus; no native FP8 / AWQ Safetensors support"
+    ],
+    "bestFor": "Developers, CLI users, and background services needing a stable local OpenAI API."
+  },
+  {
+    "id": "lm-studio",
+    "name": "LM Studio",
+    "tagline": "All-in-one desktop GUI with built-in Hugging Face model search and local OpenAI server.",
+    "category": "desktop-gui",
+    "supportedOS": ["macOS", "Windows", "Linux"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA, AMD ROCm / DirectML, Vulkan",
+    "modelFormats": ["GGUF", "MLX (macOS)"],
+    "openAiApiCompatible": true,
+    "difficulty": "Beginner",
+    "license": "Proprietary Freeware",
+    "website": "https://lmstudio.ai",
+    "github": "",
+    "installCommands": {
+      "macos": "Download from lmstudio.ai (Universal Apple Silicon / Intel .dmg)",
+      "windows": "Download from lmstudio.ai (Windows x64 installer)",
+      "linux": "Download AppImage from lmstudio.ai"
+    },
+    "quickStart": "Launch app -> Search any model from Hugging Face -> Click Download -> Start Chatting or Start Local Server.",
+    "pros": [
+      "Most polished visual UI for searching and downloading models directly from Hugging Face",
+      "Intuitive GPU offload slider with live VRAM usage telemetry",
+      "One-click local server mode with full OpenAI API compatibility",
+      "Supports structured outputs, system prompts, and multiple chat presets"
+    ],
+    "cons": [
+      "Closed-source core binary",
+      "Higher idle RAM overhead than headless CLI engines"
+    ],
+    "bestFor": "Users who want a visual, ChatGPT-like desktop experience without touching a terminal."
+  },
+  {
+    "id": "jan",
+    "name": "Jan",
+    "tagline": "100% open-source, local-first and offline desktop alternative to ChatGPT.",
+    "category": "desktop-gui",
+    "supportedOS": ["macOS", "Windows", "Linux"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA, Vulkan",
+    "modelFormats": ["GGUF"],
+    "openAiApiCompatible": true,
+    "difficulty": "Beginner",
+    "license": "AGPLv3",
+    "website": "https://jan.ai",
+    "github": "https://github.com/janhq/jan",
+    "installCommands": {
+      "macos": "brew install --cask jan  # or download .dmg from jan.ai",
+      "windows": "winget install Jan.Jan  # or download .exe installer",
+      "linux": "Download .deb, .rpm, or AppImage from jan.ai"
+    },
+    "quickStart": "Open Jan -> Go to Hub -> Download pre-configured models (DeepSeek, Llama, Qwen) -> Chat locally.",
+    "pros": [
+      "100% open source and privacy-focused; operates completely air-gapped",
+      "Built-in Nitro engine (llama.cpp fork) with automatic GPU acceleration",
+      "Extensible with community plugins and customizable local API endpoints",
+      "Clean, modern minimalist UI"
+    ],
+    "cons": [
+      "Smaller built-in model hub compared to LM Studio's raw Hugging Face browser",
+      "Less granular control over advanced sampling parameters"
+    ],
+    "bestFor": "Privacy-conscious individuals and organizations wanting a fully open-source desktop app."
+  },
+  {
+    "id": "open-webui",
+    "name": "Open WebUI",
+    "tagline": "Feature-rich, self-hosted web UI replicating the full ChatGPT experience with local RAG.",
+    "category": "web-ui",
+    "supportedOS": ["Linux", "macOS", "Windows"],
+    "hardwareAcceleration": "Dependent on backend (Ollama, vLLM, llama.cpp)",
+    "modelFormats": ["Backend Dependent"],
+    "openAiApiCompatible": true,
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "website": "https://openwebui.com",
+    "github": "https://github.com/open-webui/open-webui",
+    "installCommands": {
+      "macos": "docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main",
+      "windows": "docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main",
+      "linux": "docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main"
+    },
+    "quickStart": "Start container -> Open http://localhost:3000 in browser -> Connects automatically to local Ollama on port 11434.",
+    "pros": [
+      "Full ChatGPT feature parity: multi-user roles, chat history, voice input, markdown & code execution",
+      "Built-in RAG (Retrieval-Augmented Generation): drop PDFs, spreadsheets, and docs into chat",
+      "Web search grounding (Brave, Google, DuckDuckGo) and image generation support",
+      "Connects seamlessly to Ollama, llama.cpp, vLLM, and remote APIs"
+    ],
+    "cons": [
+      "Requires Docker or Python setup; not a single-click binary",
+      "Frontend only; requires an inference engine running in tandem"
+    ],
+    "bestFor": "Self-hosters, teams, and families wanting a centralized private web portal for local AI."
+  },
+  {
+    "id": "llama-cpp",
+    "name": "llama.cpp",
+    "tagline": "The foundational C/C++ inference engine delivering bare-metal speed across all architectures.",
+    "category": "developer-cli",
+    "supportedOS": ["macOS", "Windows", "Linux"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA, AMD ROCm, Vulkan, SYCL, OpenCL, AVX-512",
+    "modelFormats": ["GGUF"],
+    "openAiApiCompatible": true,
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "website": "https://github.com/ggerganov/llama.cpp",
+    "github": "https://github.com/ggerganov/llama.cpp",
+    "installCommands": {
+      "macos": "brew install llama.cpp  # or git clone and make (Metal enabled by default)",
+      "windows": "Download pre-built release binaries with CUDA or Vulkan from GitHub Releases",
+      "linux": "git clone https://github.com/ggerganov/llama.cpp && cd llama.cpp && cmake -B build -DGGML_CUDA=ON && cmake --build build --config Release"
+    },
+    "quickStart": "llama-server -hf unsloth/Qwen2.5-Coder-14B-Instruct-GGUF:Q4_K_M --port 8080 -ngl 99 -c 32768",
+    "pros": [
+      "Underlying engine behind Ollama, LM Studio, Jan, and KoboldCpp",
+      "Zero overhead, minimal dependencies, and maximum hardware control",
+      "Industry pioneer of the GGUF specification and k-quants / i-matrix",
+      "Includes standalone high-performance server binary (`llama-server`)"
+    ],
+    "cons": [
+      "CLI-centric configuration with dozens of technical flags",
+      "Requires manual management of GGUF shards and context windows"
+    ],
+    "bestFor": "Power users and engineers who want maximum throughput, custom compilation flags, and bare-metal control."
+  },
+  {
+    "id": "vllm",
+    "name": "vLLM",
+    "tagline": "The enterprise gold standard for high-throughput, multi-user LLM serving with PagedAttention.",
+    "category": "high-throughput",
+    "supportedOS": ["Linux", "Windows (WSL2)"],
+    "hardwareAcceleration": "NVIDIA CUDA, AMD ROCm, Intel Gaudi",
+    "modelFormats": ["Safetensors", "AWQ", "GPTQ", "FP8", "BitsAndBytes"],
+    "openAiApiCompatible": true,
+    "difficulty": "Advanced",
+    "license": "Apache 2.0",
+    "website": "https://vllm.ai",
+    "github": "https://github.com/vllm-project/vllm",
+    "installCommands": {
+      "macos": "Not natively supported (Linux / CUDA only; use MLX-LM on macOS)",
+      "windows": "wsl --install  # Run in WSL2 Ubuntu: pip install vllm",
+      "linux": "pip install vllm"
+    },
+    "quickStart": "vllm serve Qwen/Qwen2.5-Coder-14B-Instruct --tensor-parallel-size 1 --max-model-len 32768",
+    "pros": [
+      "PagedAttention virtually eliminates KV cache memory fragmentation",
+      "Continuous batching provides up to 10x-24x higher throughput under multi-user concurrency",
+      "Native support for Safetensors, AWQ, GPTQ, and FP8 formats",
+      "Enterprise production standard compatible with Kubernetes and Ray"
+    ],
+    "cons": [
+      "Requires Linux or Windows WSL2; no native macOS support",
+      "Demands high VRAM and NVIDIA/AMD GPU; not suited for low-memory CPU inference"
+    ],
+    "bestFor": "Multi-user production deployments, SaaS backends, and servers with high concurrency requirements."
+  },
+  {
+    "id": "mlx-lm",
+    "name": "MLX-LM",
+    "tagline": "Apple's native machine learning framework optimized exclusively for Apple Silicon unified memory.",
+    "category": "high-throughput",
+    "supportedOS": ["macOS"],
+    "hardwareAcceleration": "Apple Silicon Metal (Unified Memory)",
+    "modelFormats": ["MLX (Safetensors)"],
+    "openAiApiCompatible": true,
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "website": "https://github.com/ml-explore/mlx-examples",
+    "github": "https://github.com/ml-explore/mlx-examples/tree/main/llms",
+    "installCommands": {
+      "macos": "pip install mlx-lm",
+      "windows": "Not supported (Apple Silicon exclusive)",
+      "linux": "Not supported (Apple Silicon exclusive)"
+    },
+    "quickStart": "mlx_lm.server --model mlx-community/Qwen2.5-Coder-14B-Instruct-4bit --port 8080",
+    "pros": [
+      "Fastest possible token generation and prompt processing on M1/M2/M3/M4 Macs",
+      "Direct unified memory access eliminates CPU-GPU PCIe transfer bottlenecks",
+      "Native 4-bit and 8-bit quantization with built-in LoRA fine-tuning support",
+      "OpenAI-compatible server (`mlx_lm.server`) included out of the box"
+    ],
+    "cons": [
+      "Strictly locked to macOS on Apple Silicon (no Windows or Linux)",
+      "Requires Python environment to run"
+    ],
+    "bestFor": "MacBook Pro, Mac Studio, and Mac mini owners who want peak native performance on Apple Silicon."
+  },
+  {
+    "id": "anything-llm",
+    "name": "AnythingLLM",
+    "tagline": "All-in-one local desktop and self-hosted app engineered specifically for document RAG.",
+    "category": "desktop-gui",
+    "supportedOS": ["macOS", "Windows", "Linux"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA, CPU (or connects to Ollama/vLLM)",
+    "modelFormats": ["GGUF", "Remote APIs"],
+    "openAiApiCompatible": false,
+    "difficulty": "Beginner",
+    "license": "MIT",
+    "website": "https://useanything.com",
+    "github": "https://github.com/Mintplex-Labs/anything-llm",
+    "installCommands": {
+      "macos": "Download installer (.dmg) from useanything.com",
+      "windows": "Download installer (.exe) from useanything.com",
+      "linux": "Download AppImage or run Docker container"
+    },
+    "quickStart": "Open app -> Choose embedded LLM or connect to Ollama -> Drag and drop PDFs -> Query your knowledge base.",
+    "pros": [
+      "Zero-config local document indexing: drag-and-drop PDFs, Word docs, codebases, audio files",
+      "Includes embedded local vector database (LanceDB) and embedding models",
+      "Workspace isolation: separate document collections for different projects",
+      "Available both as a single-click desktop app and as a multi-user Docker container"
+    ],
+    "cons": [
+      "Focused primarily on RAG knowledge bases rather than raw model benchmarking",
+      "Heavier footprint than dedicated lightweight chat clients"
+    ],
+    "bestFor": "Researchers, legal, and engineering professionals needing private, offline document questioning."
+  },
+  {
+    "id": "koboldcpp",
+    "name": "KoboldCpp",
+    "tagline": "Single-file executable packing a llama.cpp engine, web interface, and advanced creative samplers.",
+    "category": "developer-cli",
+    "supportedOS": ["Windows", "Linux", "macOS"],
+    "hardwareAcceleration": "NVIDIA CUDA, AMD ROCm, Vulkan, Apple Metal, CLBlast",
+    "modelFormats": ["GGUF"],
+    "openAiApiCompatible": true,
+    "difficulty": "Beginner",
+    "license": "AGPLv3",
+    "website": "https://koboldai.org",
+    "github": "https://github.com/LostRuins/koboldcpp",
+    "installCommands": {
+      "macos": "brew install koboldcpp  # or run python koboldcpp.py",
+      "windows": "Download single koboldcpp.exe from GitHub Releases (no install required)",
+      "linux": "Download koboldcpp-linux-x64 from GitHub Releases and chmod +x"
+    },
+    "quickStart": "Double-click koboldcpp.exe -> Select model -> Browser opens automatically with rich web interface.",
+    "pros": [
+      "Zero installation required: standalone single portable executable on Windows and Linux",
+      "Advanced creative sampling parameters: DRY, XTC, Min-P, Mirostat, and grammar constraints",
+      "Smart context-shifting prevents prompt reprocessing during long conversations",
+      "Exposes both KoboldAI and OpenAI-compatible API endpoints"
+    ],
+    "cons": [
+      "User interface is retro / utilitarian",
+      "Manual model file selection via file dialog"
+    ],
+    "bestFor": "Users who want a portable single-file binary with advanced sampling and zero dependencies."
+  },
+  {
+    "id": "exo",
+    "name": "Exo",
+    "tagline": "Distributed P2P cluster engine that stitches disparate Macs, PCs, and laptops into a unified GPU.",
+    "category": "distributed",
+    "supportedOS": ["macOS", "Linux", "Windows"],
+    "hardwareAcceleration": "Apple Metal, NVIDIA CUDA",
+    "modelFormats": ["MLX", "Safetensors", "GGUF"],
+    "openAiApiCompatible": true,
+    "difficulty": "Advanced",
+    "license": "GPLv3",
+    "website": "https://github.com/exo-explore/exo",
+    "github": "https://github.com/exo-explore/exo",
+    "installCommands": {
+      "macos": "pip install exo",
+      "windows": "pip install exo  (requires Python 3.10+ and Git)",
+      "linux": "pip install exo"
+    },
+    "quickStart": "Run `exo` on machine A and `exo` on machine B on the same Wi-Fi/Thunderbolt network. Devices discover each other automatically.",
+    "pros": [
+      "Runs massive 70B+ or 405B models by distributing layers across multiple consumer machines",
+      "Automatic zero-configuration device discovery over local network",
+      "Supports heterogeneous hardware (e.g. Mac Studio + Windows PC + Linux laptop)",
+      "Exposes a standard OpenAI-compatible API from the primary node"
+    ],
+    "cons": [
+      "Inference speed is bounded by inter-device network bandwidth (Wi-Fi vs Thunderbolt)",
+      "Experimental architecture with ongoing active development"
+    ],
+    "bestFor": "Hobbyists with multiple Macs or PCs wanting to pool unified memory to run frontier-scale models."
+  },
+  {
+    "id": "text-generation-webui",
+    "name": "Text Generation WebUI",
+    "tagline": "The versatile Swiss-Army knife interface supporting multiple backends and fine-tuning.",
+    "category": "web-ui",
+    "supportedOS": ["Windows", "Linux", "macOS"],
+    "hardwareAcceleration": "NVIDIA CUDA, AMD ROCm, Apple Metal, CPU",
+    "modelFormats": ["GGUF", "EXL2", "AWQ", "GPTQ", "Safetensors"],
+    "openAiApiCompatible": true,
+    "difficulty": "Advanced",
+    "license": "AGPLv3",
+    "website": "https://github.com/oobabooga/text-generation-webui",
+    "github": "https://github.com/oobabooga/text-generation-webui",
+    "installCommands": {
+      "macos": "Clone repo and run ./start_macos.sh",
+      "windows": "Download one-click zip and run start_windows.bat",
+      "linux": "Clone repo and run ./start_linux.sh"
+    },
+    "quickStart": "Run start script -> Open http://127.0.0.1:7860 -> Select model loader (llama.cpp, ExLlamaV2, Transformers) -> Load & chat.",
+    "pros": [
+      "Supports nearly every model loader: llama.cpp, ExLlamaV2, Transformers, AutoGPTQ, HQQ",
+      "Built-in LoRA training and fine-tuning tab",
+      "Extensive extension ecosystem (whisper audio, web search, character cards)",
+      "Granular control over raw token generation parameters"
+    ],
+    "cons": [
+      "Steeper learning curve with complex loader configuration tabs",
+      "Large installation footprint with many Python dependencies"
+    ],
+    "bestFor": "Enthusiasts who want to experiment with different quant loaders (EXL2, AWQ, GGUF) and local fine-tuning."
+  },
+  {
+    "id": "tabby-api",
+    "name": "TabbyAPI",
+    "tagline": "Lightweight, blazing-fast ExLlamaV2 server tailored for consumer NVIDIA GPUs.",
+    "category": "high-throughput",
+    "supportedOS": ["Linux", "Windows"],
+    "hardwareAcceleration": "NVIDIA CUDA (RTX 3000/4000/5000 series)",
+    "modelFormats": ["EXL2", "GPTQ"],
+    "openAiApiCompatible": true,
+    "difficulty": "Advanced",
+    "license": "AGPLv3",
+    "website": "https://github.com/theroyallab/tabbyAPI",
+    "github": "https://github.com/theroyallab/tabbyAPI",
+    "installCommands": {
+      "macos": "Not supported (ExLlamaV2 requires NVIDIA CUDA)",
+      "windows": "git clone https://github.com/theroyallab/tabbyAPI && run start.bat",
+      "linux": "git clone https://github.com/theroyallab/tabbyAPI && pip install -r requirements.txt"
+    },
+    "quickStart": "Edit config.yml -> python main.py -> Connect any OpenAI-compatible client to http://127.0.0.1:5000/v1",
+    "pros": [
+      "Fastest generation speed on consumer NVIDIA GPUs using ExLlamaV2 EXL2 weights",
+      "Extremely low VRAM overhead compared to generic Hugging Face loaders",
+      "Native support for 4-bit KV caching and speculative decoding",
+      "Clean OpenAI-compatible endpoints with token-level streaming"
+    ],
+    "cons": [
+      "Strictly NVIDIA GPU only; no AMD, CPU, or Apple Silicon support",
+      "Only supports EXL2 and GPTQ formats (no GGUF)"
+    ],
+    "bestFor": "Gamers and developers with NVIDIA RTX 3090/4090/5090 GPUs who want the absolute fastest single-user token throughput."
+  }
+]

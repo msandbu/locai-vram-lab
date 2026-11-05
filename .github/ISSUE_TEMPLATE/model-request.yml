@@ -1,0 +1,92 @@
+name: 🚀 Request / Submit a New Model
+description: Suggest adding a new open-weights model to the LOCAI Local VRAM Lab catalog
+title: "[Model Request]: "
+labels: ["model-request", "catalog-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping expand the LOCAI Local AI model catalog!
+        Fill out as much detail as you can. If you used the in-app "Suggest Model" tool on the dashboard, you can paste the generated JSON snippet directly below.
+  - type: input
+    id: model_name
+    attributes:
+      label: Model Name
+      placeholder: "e.g. Qwen 2.5 Coder 32B Instruct"
+    validations:
+      required: true
+  - type: input
+    id: creator
+    attributes:
+      label: Creator / Organization
+      placeholder: "e.g. Alibaba, Meta, Mistral, DeepSeek"
+    validations:
+      required: true
+  - type: input
+    id: model_url
+    attributes:
+      label: Hugging Face or Model Repo URL
+      placeholder: "https://huggingface.co/..."
+    validations:
+      required: true
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      options:
+        - Dense
+        - MoE
+    validations:
+      required: true
+  - type: input
+    id: total_params
+    attributes:
+      label: Total Parameters (Billion)
+      placeholder: "e.g. 32"
+    validations:
+      required: true
+  - type: input
+    id: active_params
+    attributes:
+      label: Active Parameters (for MoE models)
+      placeholder: "e.g. 14 (leave blank if Dense)"
+  - type: input
+    id: context_window
+    attributes:
+      label: Native Context Window (K tokens)
+      placeholder: "e.g. 32, 64, 128"
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      placeholder: "e.g. Apache 2.0, MIT, Llama Community"
+    validations:
+      required: true
+  - type: input
+    id: coding_score
+    attributes:
+      label: Benchmark Coding Score (0–100 scale, or LiveCodeBench %)
+      placeholder: "e.g. 78"
+  - type: input
+    id: intelligence_score
+    attributes:
+      label: Artificial Analysis Intelligence Index
+      placeholder: "e.g. 38"
+  - type: input
+    id: q4_size
+    attributes:
+      label: Measured Q4 GGUF Size (GB)
+      placeholder: "e.g. 19.8"
+  - type: textarea
+    id: json_snippet
+    attributes:
+      label: Generated JSON Entry (from dashboard "Suggest Model" form)
+      description: Paste the JSON block from the website modal here for rapid verification.
+      render: json
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes / Hardware Findings
+      placeholder: Hardware considerations, tested quantization formats, run commands, or benchmark sources.

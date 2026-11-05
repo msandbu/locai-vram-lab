@@ -1,0 +1,92 @@
+[
+  {
+    "id": "gpu-8gb",
+    "name": "8 GB VRAM",
+    "shortLabel": "8 GB",
+    "vramGb": 8,
+    "bandwidthGbS": 272,
+    "category": "Consumer GPU",
+    "examples": "RTX 4060, RTX 3070, RX 7600, MacBook Air 8G/16G"
+  },
+  {
+    "id": "gpu-12gb",
+    "name": "12 GB VRAM",
+    "shortLabel": "12 GB",
+    "vramGb": 12,
+    "bandwidthGbS": 504,
+    "category": "Consumer GPU",
+    "examples": "RTX 4070 / Super, RTX 5070, RX 7700 XT, RTX 3060 12GB, Arc B580"
+  },
+  {
+    "id": "gpu-16gb",
+    "name": "16 GB VRAM",
+    "shortLabel": "16 GB",
+    "vramGb": 16,
+    "bandwidthGbS": 736,
+    "category": "Consumer GPU",
+    "examples": "RTX 5070 Ti / 5080, RTX 4080, RTX 4060 Ti 16GB, RX 7800 XT"
+  },
+  {
+    "id": "gpu-24gb",
+    "name": "24 GB VRAM",
+    "shortLabel": "24 GB",
+    "vramGb": 24,
+    "bandwidthGbS": 1008,
+    "category": "Consumer GPU",
+    "examples": "RTX 4090, RTX 3090 / 3090 Ti, RX 7900 XTX, Mac 24GB–36GB"
+  },
+  {
+    "id": "gpu-32gb",
+    "name": "32 GB VRAM",
+    "shortLabel": "32 GB",
+    "vramGb": 32,
+    "bandwidthGbS": 1792,
+    "category": "Consumer GPU",
+    "examples": "RTX 5090 32GB, M4 Max 36GB–48GB Unified"
+  },
+  {
+    "id": "gpu-48gb",
+    "name": "48 GB VRAM",
+    "shortLabel": "48 GB",
+    "vramGb": 48,
+    "bandwidthGbS": 1008,
+    "category": "Multi-GPU / Workstation",
+    "examples": "2x RTX 3090/4090 (48GB), RTX 6000 Ada, L40S"
+  },
+  {
+    "id": "gpu-64gb",
+    "name": "64 GB Unified / Multi-GPU",
+    "shortLabel": "64 GB",
+    "vramGb": 64,
+    "bandwidthGbS": 546,
+    "category": "Apple Unified Memory",
+    "examples": "MacBook Pro / Mac Studio 64GB, 2x RTX 5090 (64GB)"
+  },
+  {
+    "id": "gpu-128gb",
+    "name": "96–128 GB Workstation",
+    "shortLabel": "128 GB",
+    "vramGb": 128,
+    "bandwidthGbS": 800,
+    "category": "Multi-GPU / Workstation",
+    "examples": "Mac Studio 128GB, RTX PRO 6000 Blackwell 96GB, Strix Halo 128GB"
+  },
+  {
+    "id": "gpu-256gb",
+    "name": "256 GB Unified / Multi-GPU",
+    "shortLabel": "256 GB",
+    "vramGb": 256,
+    "bandwidthGbS": 819,
+    "category": "Apple Unified Memory",
+    "examples": "Mac Studio Ultra 256GB, Dual DGX Spark, GPU + 256GB DDR5 Rig"
+  },
+  {
+    "id": "gpu-1024gb",
+    "name": "512 GB – 1 TB+ Cluster",
+    "shortLabel": "1 TB+",
+    "vramGb": 1024,
+    "bandwidthGbS": 3200,
+    "category": "Multi-GPU / Workstation",
+    "examples": "Mac Studio Ultra 512GB, 8x H200 / B200 Node, Multi-Node Cluster"
+  }
+]

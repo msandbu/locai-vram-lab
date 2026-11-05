@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  * {
+    border-color: rgba(226, 232, 240, 0.8);
+  }
+
+  html.dark * {
+    border-color: rgba(30, 41, 59, 0.7);
+  }
+
+  ::selection {
+    background-color: rgba(13, 148, 136, 0.25);
+    color: inherit;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #f8fafc;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html.dark body {
+    background-color: #090b10;
+    color: #f1f5f9;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.028em;
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+}
+
+/* Minimalist engineering blueprint grid */
+.bg-workbench-grid {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+html.dark .bg-workbench-grid {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Subtle micro-borders for clean minimalist cards */
+.minimal-card {
+  transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.minimal-card:hover {
+  border-color: rgba(13, 148, 136, 0.35);
+}
+
+/* Refined custom scrollbar */
+.locai-scrollbar::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+.locai-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.locai-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+
+.locai-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45);
+}

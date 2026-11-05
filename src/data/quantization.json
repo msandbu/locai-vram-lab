@@ -1,0 +1,218 @@
+{
+  "levels": [
+    {
+      "key": "q2",
+      "label": "2-bit Dynamic (UD-IQ2_M / IQ2_XXS)",
+      "shortLabel": "Q2 (~2.4b)",
+      "ggufTag": "UD-IQ2_M",
+      "bitsPerWeight": 2.45,
+      "qualityRetentionPct": 86,
+      "codingRetentionPct": 78,
+      "vramSavingsPct": 84,
+      "badge": "Extreme Compression",
+      "summary": "Uses importance-matrix vector codebooks and Unsloth Dynamic layer upcasting to fit giant MoE models (like 400B–750B) onto 256GB Unified Memory or multi-GPU rigs.",
+      "whenToUse": "Only recommended for massive Mixture-of-Experts (100B+–750B+) models where 4-bit won't fit. Avoid 2-bit on small 7B–14B dense models—just run a smaller model at Q4 instead.",
+      "codingImpact": "High sensitivity on small models: exact syntax, edge-case imports, and multi-file refactoring degrade noticeably unless running 300B+ MoE with Unsloth Dynamic UD-IQ2."
+    },
+    {
+      "key": "q3",
+      "label": "3-bit Dynamic (UD-Q3_K_XL / IQ3_M)",
+      "shortLabel": "Q3 (~3.5b)",
+      "ggufTag": "UD-Q3_K_XL",
+      "bitsPerWeight": 3.55,
+      "qualityRetentionPct": 93,
+      "codingRetentionPct": 89,
+      "vramSavingsPct": 77,
+      "badge": "Tight VRAM Saver",
+      "summary": "Squeezes 30B–33B dense models into 16GB VRAM or 70B–120B models into 48GB–64GB setups while keeping critical attention and router weights in 4–6 bit.",
+      "whenToUse": "When a model's 4-bit quant overflows your GPU by 2–4 GB and prevents fitting a usable 16K–32K context window.",
+      "codingImpact": "Moderate trade-off: algorithmic logic remains solid with Unsloth Dynamic (UD-Q3_K_XL), though subtle API recall and long-context code editing dip ~5–10% vs Q4."
+    },
+    {
+      "key": "q4",
+      "label": "4-bit Dynamic / K-Quant (UD-Q4_K_XL / Q4_K_M)",
+      "shortLabel": "Q4 (Recommended)",
+      "ggufTag": "UD-Q4_K_XL",
+      "bitsPerWeight": 4.65,
+      "qualityRetentionPct": 98,
+      "codingRetentionPct": 97,
+      "vramSavingsPct": 71,
+      "badge": "Sweet Spot Default",
+      "summary": "The universal gold standard for local AI. Retains ~97–99% of unquantized reasoning and coding capability while cutting memory footprint by over two-thirds and boosting token generation speed.",
+      "whenToUse": "Default choice for almost every local setup (Ollama, LM Studio, llama.cpp). Prefer Unsloth Dynamic (UD-Q4_K_XL) or imatrix Q4_K_M whenever available.",
+      "codingImpact": "Near-baseline coding quality. Faster tokens/sec than Q8/BF16 (because LLM inference is memory-bandwidth bound), making agentic coding loops snappier."
+    },
+    {
+      "key": "q6",
+      "label": "6-bit Mixed Precision (Q6_K / UD-Q6_K_XL)",
+      "shortLabel": "Q6 (~6.6b)",
+      "ggufTag": "Q6_K",
+      "bitsPerWeight": 6.56,
+      "qualityRetentionPct": 99.4,
+      "codingRetentionPct": 99.1,
+      "vramSavingsPct": 59,
+      "badge": "Near-Lossless",
+      "summary": "Virtually indistinguishable from full 16-bit weights in blind perplexity, math, and repository-level coding evaluations, while still saving ~40% VRAM vs BF16.",
+      "whenToUse": "When you have spare VRAM headroom (e.g., running a 12B–14B coder model on a 24GB GPU or a 27B–32B model on 32GB–48GB) and want zero quantization anxiety.",
+      "codingImpact": "Virtually zero loss on LiveCodeBench, SWE-bench, or strict JSON/tool-calling schemas."
+    },
+    {
+      "key": "q8",
+      "label": "8-bit Precision (Q8_0 / FP8)",
+      "shortLabel": "Q8 (~8.5b)",
+      "ggufTag": "Q8_0",
+      "bitsPerWeight": 8.5,
+      "qualityRetentionPct": 99.9,
+      "codingRetentionPct": 99.8,
+      "vramSavingsPct": 47,
+      "badge": "Lossless Local",
+      "summary": "Uniform 8-bit quantization (around 1.05 GB per billion parameters). Matches BF16 benchmark scores within statistical noise (<0.2% perplexity delta).",
+      "whenToUse": "Ideal for 4B–14B coding/reasoning models on 16GB–24GB cards, or FP8 serving on Ada/Blackwell NVIDIA GPUs via vLLM / SGLang.",
+      "codingImpact": "Identical to unquantized weights for code generation, regexes, and multi-step terminal agents, at ~2x slower tok/s than Q4 if bandwidth-limited."
+    },
+    {
+      "key": "bf16",
+      "label": "16-bit Unquantized (BF16 / FP16)",
+      "shortLabel": "BF16 (16b)",
+      "ggufTag": "BF16",
+      "bitsPerWeight": 16.0,
+      "qualityRetentionPct": 100,
+      "codingRetentionPct": 100,
+      "vramSavingsPct": 0,
+      "badge": "Full Reference Weights",
+      "summary": "Original training-precision weights (~2 GB per billion parameters before KV cache). Rarely needed for local inference unless fine-tuning (LoRA) or benchmarking reference accuracy.",
+      "whenToUse": "Research evaluation, LoRA fine-tuning baselines, or tiny ≤4B models where 8 GB of VRAM is trivial.",
+      "codingImpact": "100% reference baseline, but consumes 3.4x the VRAM of Q4 and generates tokens ~2.5–3x slower on single-user local GPUs."
+    }
+  ],
+  "formats": [
+    {
+      "id": "unsloth-ud",
+      "name": "Unsloth Dynamic GGUF (UD-*)",
+      "tagline": "Per-layer sensitivity-calibrated GGUF for maximum reasoning & coding retention",
+      "ecosystems": ["llama.cpp", "Ollama", "LM Studio", "Unsloth Desktop", "Jan"],
+      "hardwareTarget": "NVIDIA, AMD, Intel Arc, Apple Silicon & CPU+GPU Hybrid",
+      "pros": [
+        "Calibrated on 1.5M+ diverse tokens using KL-divergence sensitivity analysis",
+        "Keeps critical attention, MoE router, and output layers at 6–8 bit while compressing tolerant FFN layers",
+        "Substantially higher coding & tool-calling accuracy at 2-bit to 4-bit than uniform quants"
+      ],
+      "cons": [
+        "Slightly larger file size (~5–8%) than flat K-quants (e.g. UD-Q4_K_XL vs Q4_K_S)",
+        "Requires a reasonably up-to-date llama.cpp / Ollama build"
+      ],
+      "description": "Instead of applying the same bit-width blindly to every tensor, Unsloth Dynamic 2.0/3.0 profiles each specific model architecture to protect sensitive reasoning and coding pathways."
+    },
+    {
+      "id": "gguf-k-i",
+      "name": "Standard GGUF (K-Quants & I-Quants)",
+      "tagline": "Universal single-file format powering the local AI ecosystem",
+      "ecosystems": ["llama.cpp", "Ollama", "LM Studio", "KoboldCpp", "TextGen WebUI"],
+      "hardwareTarget": "Any GPU + System RAM offloading",
+      "pros": [
+        "Runs everywhere—CUDA, Metal, Vulkan, ROCm, SYCL, and pure CPU",
+        "Supports seamless layer/expert offloading to System RAM when VRAM fills up",
+        "K-quants (Q4_K_M, Q5_K_M) are fast; I-quants (IQ4_XS, IQ3_M) use imatrix codebooks for tighter VRAM limits"
+      ],
+      "cons": [
+        "I-quants (IQ*) require slightly extra compute to dequantize on older CPUs/GPUs",
+        "Not optimized for high-concurrency multi-user batching compared to vLLM/AWQ"
+      ],
+      "description": "Created by Georgi Gerganov and the ggml/llama.cpp community. K-quants group weights into super-blocks with mixed scales, while I-quants use non-linear lookup tables guided by an Importance Matrix (imatrix)."
+    },
+    {
+      "id": "exl2-exl3",
+      "name": "EXL2 / EXL3 (ExLlamaV2 & V3)",
+      "tagline": "Surgical fractional bit-widths & blistering single-user speed on NVIDIA GPUs",
+      "ecosystems": ["ExLlamaV2 / V3", "TabbyAPI", "TextGen WebUI"],
+      "hardwareTarget": "NVIDIA RTX GPUs Only (VRAM-resident)",
+      "pros": [
+        "Supports exact fractional bitrates (e.g. 3.75 bpw, 4.25 bpw, 5.0 bpw) to fill a 16GB or 24GB card to the last megabyte",
+        "Fastest single-stream token generation and built-in Q4/FP8 KV cache quantization",
+        "EXL3 introduces lattice/QTIP-inspired quantization for dramatically sharper sub-4-bit retention"
+      ],
+      "cons": [
+        "NVIDIA CUDA focused—not meant for CPU offloading or AMD/Mac setups",
+        "Requires entire model + KV cache to reside inside GPU VRAM"
+      ],
+      "description": "Designed specifically for enthusiasts running dedicated NVIDIA GPUs who want maximum tokens/second and exact control over weight + context memory budgets."
+    },
+    {
+      "id": "awq-fp8",
+      "name": "AWQ & Native FP8",
+      "tagline": "Production high-throughput GPU serving & multi-agent concurrency",
+      "ecosystems": ["vLLM", "SGLang", "TensorRT-LLM", " Aphrodite"],
+      "hardwareTarget": "NVIDIA RTX 40/50-series & Datacenter GPUs",
+      "pros": [
+        "Industry standard for running parallel coding subagents or team servers via vLLM / SGLang",
+        "AWQ protects the top 1% of activation-salient channels to preserve coding accuracy at INT4",
+        "Native FP8 uses hardware tensor cores on RTX 4090/5090 & Hopper/Blackwell"
+      ],
+      "cons": [
+        "Less flexible bit-widths (typically fixed 4-bit AWQ or 8-bit FP8)",
+        "Higher startup time and baseline runtime memory reservation than llama.cpp"
+      ],
+      "description": "If you run parallel coding agents (like OpenCode, Aider, or SWE-agent harnesses firing concurrent requests), vLLM or SGLang with AWQ/FP8 delivers far higher aggregate throughput than GGUF."
+    },
+    {
+      "id": "apple-mlx",
+      "name": "Apple MLX (4-bit / 6-bit / DWQ)",
+      "tagline": "Zero-copy native inference built for Apple Silicon Unified Memory",
+      "ecosystems": ["mlx-lm", "LM Studio (Mac)", "vllm-mlx"],
+      "hardwareTarget": "Apple Silicon (M1 / M2 / M3 / M4 Pro, Max, Ultra)",
+      "pros": [
+        "15–30% faster prompt processing and token generation on macOS than Metal GGUF in many workloads",
+        "Leverages Apple Unified Memory natively to run 70B–750B models on Mac Studio without PCIe bottlenecks",
+        "Supports Dynamic/DWQ mixed-precision recipes similar to Unsloth Dynamic"
+      ],
+      "cons": [
+        "macOS Apple Silicon exclusive—cannot run on Windows/Linux PCs"
+      ],
+      "description": "Maintained by Apple's machine learning research group (`mlx-community` on Hugging Face), MLX is the fastest native format for MacBook Pro and Mac Studio users."
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-vram-formula",
+      "category": "VRAM & Hardware",
+      "question": "Why does a model use more VRAM than its GGUF file size on disk?",
+      "answer": "Total GPU memory equals three parts: **Model Weights + KV Cache + Runtime/Display Overhead**. A 27B model at `UD-Q4_K_XL` might be ~16.8 GB on disk, plus ~2.2 GB for a 32K context KV cache, plus ~1.2 GB for CUDA compute buffers and Windows/desktop compositors—bringing real-world usage to ~20.2 GB. Our visualizer includes all three components automatically."
+    },
+    {
+      "id": "faq-coding-quant",
+      "category": "Quantization",
+      "question": "Why does coding quality drop faster than casual chat below 4-bit quantization?",
+      "answer": "In casual prose, choosing a synonym ('quick' vs 'fast') goes unnoticed. In software engineering, a single flipped token preference can hallucinate a flag name, miss an off-by-one boundary, or break a multi-hunk diff patch. Benchmarks on LiveCodeBench and Aider show `Q4` (`UD-Q4_K_XL` / `Q4_K_M`) retains ~97% of BF16 coding accuracy, `Q6`/`Q8` is ~99%+, whereas dropping a small dense model to `Q2` can slash pass@1 coding rates by 15–25%."
+    },
+    {
+      "id": "faq-moe-vram",
+      "category": "MoE & Context",
+      "question": "How do Mixture-of-Experts (MoE) models like 120B-A12B or 30B-A3B affect GPU requirements?",
+      "answer": "MoE models decouple **capacity (VRAM)** from **compute speed (tokens/s)**. For example, `Qwen3-30B-A3B` has 30.5B total parameters, so **all 30.5B weights (~17.5 GB at Q4) must reside in memory**. However, only 3B parameters activate per token—meaning it generates tokens nearly as fast as a tiny 3B model! Even better: if an MoE exceeds your GPU VRAM, `llama.cpp` (`-ot exps=CPU`) and Unsloth can keep attention + shared layers on your GPU while offloading routed expert tensors to fast DDR5 System RAM."
+    },
+    {
+      "id": "faq-k-vs-i-vs-ud",
+      "category": "Quantization",
+      "question": "What do Q4_K_M, IQ4_XS, and UD-Q4_K_XL actually mean in GGUF filenames?",
+      "answer": "• **`Q4_K_M` (K-Quant, Medium):** Block-wise 4-bit quantization where select attention/feed-forward tensors get 5–6 bits using fixed heuristics.\n• **`IQ4_XS` (I-Quant, Extra Small):** Uses vector codebooks + an **Importance Matrix (`imatrix`)** measured on calibration text to pack weights tighter (~4.25 bpw) with better quality per byte.\n• **`UD-Q4_K_XL` (Unsloth Dynamic):** Profiles KL-divergence sensitivity on every layer of that exact model over >1.5M tokens, dynamically promoting fragile reasoning/coding layers to 6–8 bits while keeping total size near standard Q4."
+    },
+    {
+      "id": "faq-kv-cache",
+      "category": "MoE & Context",
+      "question": "How can I fit a 64K or 128K coding context window without running out of VRAM?",
+      "answer": "Enable **Flash Attention** and **KV Cache Quantization** (`Q8_0` KV cache). By default, engines store past token Keys & Values in 16-bit (`FP16`). Passing `--flash-attn -ctk q8_0 -ctv q8_0` in `llama.cpp` (or enabling `Q8_0` KV Cache in LM Studio / Ollama `OLLAMA_KV_CACHE_TYPE=q8_0`) cuts context memory roughly **in half** with virtually zero measurable loss in coding accuracy. Avoid `Q4_0` KV cache on V-tensors for coding unless strictly necessary."
+    },
+    {
+      "id": "faq-gpu-vs-mac",
+      "category": "VRAM & Hardware",
+      "question": "Should I buy discrete NVIDIA GPUs or an Apple Silicon Mac Studio for local LLMs?",
+      "answer": "It comes down to **Speed vs. Model Size**:\n• **NVIDIA GPUs (RTX 3090 / 4090 / 5090):** Massive memory bandwidth (`1,008–1,792 GB/s`) and massive CUDA compute for fast prompt ingestion (reading big codebases in seconds) and blazing token generation—capped at 24–32 GB per card.\n• **Apple Silicon Unified Memory (M3/M4 Max & Ultra, 64GB–512GB):** Lower memory bandwidth (`400–819 GB/s`) and slower long-prompt prefill on giant repos, *but* lets you load 70B–750B+ models silently in a 100W desktop box for a fraction of server GPU prices."
+    },
+    {
+      "id": "faq-scores-methodology",
+      "category": "Benchmarks & Coding",
+      "question": "How are the Intelligence Score and Coding Score sourced and updated?",
+      "answer": "All data on this site lives in static, auditable JSON (`src/data/models.json`) curated manually without opaque live APIs:\n• **Intelligence Score:** Sourced from the **Artificial Analysis Intelligence Index (v5)** (which weights Knowledge Work, Coding, Science, and General Reasoning at 25% each; open-weight models peak up to `44` with Kimi K3, vs ~`59` for proprietary cloud frontier models).\n• **Coding Score (0–100):** Overall local coding capability synthesized from benchmark evaluations on repository-level reasoning, code generation, and diff accuracy at `Q4`+ precision."
+    }
+  ]
+}
