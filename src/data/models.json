@@ -1431,5 +1431,45 @@
     },
     "runCommand": "llama-server -hf unsloth/Kimi-K3-GGUF:UD-IQ1_M -c 65536 -ot \".ffn_.*_exps.=CPU\"",
     "notes": "2.8T parameter colossus (896 experts, 104B active, Kimi Delta Attention + MLA) & #1 Open-Weight Intelligence (44). Native MXFP4 is ~1.56 TB; Unsloth Dynamic 1-bit (~594 GB) / 2-bit (~760 GB) enables multi-node Mac Studio or 1TB+ DDR5/GPU server hosting."
+  },
+  {
+    "id": "kimi-k3-1-pro",
+    "name": "Kimi K3.1 Pro (2.8T-A104B)",
+    "creator": "Moonshot AI",
+    "creatorColor": "#0ea5e9",
+    "releaseDate": "2026-11",
+    "license": "Kimi K3.1 Pro License",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 2800.0,
+    "activeParamsB": 104.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 46,
+    "codingScore": 97,
+    "codingBreakdown": {
+      "aaCodingIndex": 97,
+      "liveCodeBench": 95,
+      "sweBenchVerified": 88,
+      "aiderPolyglot": 96
+    },
+    "recommendedQuant": "UD-IQ1_M (~594G) / Native MXFP4",
+    "weightsGbByQuant": {
+      "q2": 760.0,
+      "q3": 1120.0,
+      "q4": 1560.0,
+      "q6": 2240.0,
+      "q8": 2920.0,
+      "bf16": 5600.0
+    },
+    "kvPer32kGb": 2.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/kimi-k3-1-pro",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro"
+    },
+    "runCommand": "llama-server -hf unsloth/Kimi-K3.1-Pro-GGUF:UD-IQ1_M -c 65536 -ot \".ffn_.*_exps.=CPU\"",
+    "notes": "Moonshot AI's 2.8T MoE agentic flagship (896 routed experts, 104B active, Gated DSA + KDA attention & MoonViT-V2) and #1 Open-Weight intelligence ceiling (46). Native MXFP4 is ~1.56 TB; Unsloth Dynamic 1-bit (~594 GB) and 2-bit (~760 GB) enable 1TB+ multi-node / workstation cluster deployment with native 1M context."
   }
 ]
