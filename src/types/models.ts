@@ -53,6 +53,8 @@ export interface LocalAIModel {
   sources?: ModelSources;
   runCommand?: string;
   notes?: string;
+  /** Flag to indicate proprietary cloud frontier reference baselines (e.g. Claude Fable 5.2) */
+  isProprietaryBaseline?: boolean;
 }
 
 export interface GpuPreset {

@@ -133,7 +133,11 @@ export function estimateModelVram(
   let fitLabel: 'Comfortable Fit' | 'Tight Fit' | 'Requires Offloading' | 'Not Supported';
   let incompatibilityReason: string | null = null;
 
-  if (totalVramGb <= usableGb * 0.92) {
+  if (model.isProprietaryBaseline) {
+    fitStatus = 'unsupported';
+    fitLabel = 'Not Supported';
+    incompatibilityReason = 'Proprietary Cloud Model (Anthropic API / Closed Weights). Displayed solely as an empirical performance ceiling comparison.';
+  } else if (totalVramGb <= usableGb * 0.92) {
     fitStatus = 'comfortable';
     fitLabel = 'Comfortable Fit';
     incompatibilityReason = null;
@@ -154,7 +158,7 @@ export function estimateModelVram(
     incompatibilityReason = `Hardware tier exceeded. Requires minimum ${getMinimumGpuTier(totalVramGb)} VRAM to load this model at ${quant.toUpperCase()}.`;
   }
 
-  const isRunnable = fitStatus === 'comfortable' || fitStatus === 'tight';
+  const isRunnable = !model.isProprietaryBaseline && (fitStatus === 'comfortable' || fitStatus === 'tight');
 
   let estTokensPerSec: number | null = null;
   if (isRunnable) {

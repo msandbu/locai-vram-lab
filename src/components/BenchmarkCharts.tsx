@@ -42,6 +42,7 @@ const GPU_TIER_LINES = [8, 16, 24, 64, 128, 256, 1024];
 
 function getShortChartLabel(name: string): string {
   return name
+    .replace(' (Frontier Reference)', '')
     .replace(' (Reasoning)', '')
     .replace(' (Xhigh)', '')
     .replace(' (Max)', '')
@@ -110,7 +111,11 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
     );
 
   const topIntelOverall = useMemo(() => {
-    return [...items].sort((a, b) => b.model.intelligenceScore - a.model.intelligenceScore)[0] ?? null;
+    return (
+      [...items]
+        .filter((i) => !i.model.isProprietaryBaseline)
+        .sort((a, b) => b.model.intelligenceScore - a.model.intelligenceScore)[0] ?? null
+    );
   }, [items]);
 
   const fastestFitting = useMemo(() => {
@@ -143,7 +148,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
       return ((Math.log2(clamped) - logMin) / (logMax - logMin)) * 100;
     };
 
-    const yMax = yMetric === 'coding' ? 100 : 48;
+    const yMax = yMetric === 'coding' ? 100 : 70;
     const yMin = yMetric === 'coding' ? 35 : 0;
 
     const yPct = (val: number) => {
@@ -873,6 +878,10 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   <span className="h-0.5 w-4 border-t-2 border-dashed border-cyan-500" />
                   Optimal Frontier (Pareto)
                 </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-500 ring-2 ring-amber-300 dark:ring-amber-500/50" />
+                  Cloud Frontier Baseline
+                </span>
               </div>
 
               <div className="text-[11px] font-mono-num text-slate-400">
@@ -892,7 +901,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 />
 
                 {/* Y Axis Grid Lines & Numeric Labels */}
-                {(yMetric === 'coding' ? [40, 55, 70, 85, 100] : [0, 12, 24, 36, 48]).map((tick) => {
+                {(yMetric === 'coding' ? [40, 55, 70, 85, 100] : [0, 15, 30, 45, 60, 70]).map((tick) => {
                   const top = scatterData.yPct(tick);
                   return (
                     <div
@@ -992,7 +1001,9 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   let dotRingClass = '';
                   let dotBg = model.creatorColor;
 
-                  if (vram.fitStatus === 'comfortable') {
+                  if (model.isProprietaryBaseline) {
+                    dotRingClass = 'ring-4 ring-amber-400 border-white dark:border-slate-950 shadow-lg scale-110';
+                  } else if (vram.fitStatus === 'comfortable') {
                     dotRingClass = 'ring-2 ring-teal-500/70 border-white dark:border-slate-950 shadow-sm';
                   } else if (vram.fitStatus === 'tight') {
                     dotRingClass = 'ring-2 ring-amber-500/70 border-white dark:border-slate-950 shadow-sm';
@@ -1064,6 +1075,11 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                           <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
                             {hoveredItem.model.creator}
                           </span>
+                          {hoveredItem.model.isProprietaryBaseline && (
+                            <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-700 dark:text-amber-300 uppercase">
+                              Frontier Baseline
+                            </span>
+                          )}
                         </div>
                         <h4 className="font-display text-sm font-bold text-slate-950 dark:text-white line-clamp-1">
                           {hoveredItem.model.name}
@@ -1072,7 +1088,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
 
                       <CompatibilityBadge
                         status={hoveredItem.vram.fitStatus}
-                        label={hoveredItem.vram.fitLabel}
+                        label={hoveredItem.model.isProprietaryBaseline ? 'Cloud API' : hoveredItem.vram.fitLabel}
                         size="xs"
                       />
                     </div>

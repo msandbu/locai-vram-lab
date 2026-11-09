@@ -1471,5 +1471,45 @@
     },
     "runCommand": "llama-server -hf unsloth/Kimi-K3.1-Pro-GGUF:UD-IQ1_M -c 65536 -ot \".ffn_.*_exps.=CPU\"",
     "notes": "Moonshot AI's 2.8T MoE agentic flagship (896 routed experts, 104B active, Gated DSA + KDA attention & MoonViT-V2) and #1 Open-Weight intelligence ceiling (46). Native MXFP4 is ~1.56 TB; Unsloth Dynamic 1-bit (~594 GB) and 2-bit (~760 GB) enable 1TB+ multi-node / workstation cluster deployment with native 1M context."
+  },
+  {
+    "id": "claude-fable-5-2",
+    "name": "Claude Fable 5.2 (Frontier Reference)",
+    "creator": "Anthropic",
+    "creatorColor": "#d97706",
+    "releaseDate": "2026-11",
+    "license": "Proprietary API",
+    "licensePermissive": false,
+    "architecture": "MoE",
+    "totalParamsB": 2400.0,
+    "activeParamsB": 96.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 65,
+    "codingScore": 100,
+    "codingBreakdown": {
+      "aaCodingIndex": 100,
+      "liveCodeBench": 98,
+      "sweBenchVerified": 70,
+      "aiderPolyglot": 99
+    },
+    "recommendedQuant": "Cloud API (Closed Weights)",
+    "weightsGbByQuant": {
+      "q2": 650.0,
+      "q3": 960.0,
+      "q4": 1340.0,
+      "q6": 1920.0,
+      "q8": 2500.0,
+      "bf16": 4800.0
+    },
+    "kvPer32kGb": 2.5,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/claude-fable-5-2",
+      "huggingFace": "https://www.anthropic.com/news/claude-fable-5-2"
+    },
+    "runCommand": "curl https://api.anthropic.com/v1/messages -H 'x-api-key: $ANTHROPIC_API_KEY' -d '{\"model\":\"claude-fable-5-2\"}'",
+    "notes": "Anthropic's frontier proprietary cloud flagship (65 Intelligence Index, #1 on Artificial Analysis & 100 Coding Index). Plotted as an empirical baseline to show the gap between open-weight local giants (Kimi K3.1 Pro at 46) and closed frontier cloud infrastructure.",
+    "isProprietaryBaseline": true
   }
 ]

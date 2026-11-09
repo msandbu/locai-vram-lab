@@ -348,6 +348,11 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
                               <span className="font-display text-sm font-bold text-slate-950 transition-colors group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
                                 {model.name}
                               </span>
+                              {model.isProprietaryBaseline && (
+                                <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[10px] font-bold text-amber-700 dark:text-amber-300 uppercase">
+                                  Frontier Baseline
+                                </span>
+                              )}
                               {model.reasoning && (
                                 <span
                                   className="inline-flex items-center gap-0.5 rounded border border-cyan-500/20 bg-cyan-500/10 px-1.5 py-0.2 text-[10px] font-semibold text-cyan-700 dark:text-cyan-300"
