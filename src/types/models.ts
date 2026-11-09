@@ -53,9 +53,29 @@ export interface LocalAIModel {
   sources?: ModelSources;
   runCommand?: string;
   notes?: string;
-  /** Flag to indicate proprietary cloud frontier reference baselines (e.g. Claude Fable 5.2) */
-  isProprietaryBaseline?: boolean;
 }
+
+export interface FrontierBaseline {
+  id: string;
+  name: string;
+  creator: string;
+  creatorColor: string;
+  intelligenceScore: number;
+  codingScore: number;
+  notes: string;
+  sourceUrl: string;
+}
+
+export const FRONTIER_BASELINE: FrontierBaseline = {
+  id: 'claude-fable-5-2',
+  name: 'Claude Fable 5.2',
+  creator: 'Anthropic',
+  creatorColor: '#d97706',
+  intelligenceScore: 65,
+  codingScore: 100,
+  notes: 'Anthropic closed-weights proprietary cloud flagship (AA Intel: 65 · Coding: 100). Serves as the external frontier baseline to measure open-source progress against.',
+  sourceUrl: 'https://artificialanalysis.ai/models/claude-fable-5-2',
+};
 
 export interface GpuPreset {
   id: string;

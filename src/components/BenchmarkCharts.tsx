@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { GpuPreset, LocalAIModel, QuantKey } from '../types/models';
+import { FRONTIER_BASELINE, GpuPreset, LocalAIModel, QuantKey } from '../types/models';
 import { formatParamsB, VramEstimate } from '../utils/vram';
 import { CompatibilityBadge } from './CompatibilityBadge';
 import {
@@ -113,7 +113,6 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
   const topIntelOverall = useMemo(() => {
     return (
       [...items]
-        .filter((i) => !i.model.isProprietaryBaseline)
         .sort((a, b) => b.model.intelligenceScore - a.model.intelligenceScore)[0] ?? null
     );
   }, [items]);
@@ -878,9 +877,9 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   <span className="h-0.5 w-4 border-t-2 border-dashed border-cyan-500" />
                   Optimal Frontier (Pareto)
                 </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-500 ring-2 ring-amber-300 dark:ring-amber-500/50" />
-                  Cloud Frontier Baseline
+                <span className="inline-flex items-center gap-1.5 font-medium text-amber-700 dark:text-amber-400">
+                  <span className="h-0.5 w-4 border-t-2 border-dashed border-amber-500" />
+                  Frontier Baseline ({FRONTIER_BASELINE.name})
                 </span>
               </div>
 
@@ -915,6 +914,25 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                     </div>
                   );
                 })}
+
+                {/* Frontier Reference Baseline Horizontal Guideline */}
+                {(() => {
+                  const baselineScore =
+                    yMetric === 'coding' ? FRONTIER_BASELINE.codingScore : FRONTIER_BASELINE.intelligenceScore;
+                  const top = scatterData.yPct(baselineScore);
+                  return (
+                    <div
+                      key="frontier-guideline"
+                      className="pointer-events-none absolute right-0 left-0 z-15 border-t-2 border-dashed border-amber-500/80 dark:border-amber-400/80"
+                      style={{ top: `${top}%` }}
+                    >
+                      <span className="absolute -top-3.5 right-2 inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-50/95 px-2.5 py-0.5 font-mono-num text-[10px] font-bold text-amber-900 shadow-xs backdrop-blur-xs dark:border-amber-400/40 dark:bg-amber-950/90 dark:text-amber-200">
+                        <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                        Frontier Baseline: {FRONTIER_BASELINE.name} ({baselineScore} {yMetric === 'coding' ? 'Coding' : 'Intel'})
+                      </span>
+                    </div>
+                  );
+                })()}
 
                 {/* GPU Hardware Tier Vertical Lines */}
                 {GPU_TIER_LINES.map((tierGb) => {
@@ -1001,9 +1019,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   let dotRingClass = '';
                   let dotBg = model.creatorColor;
 
-                  if (model.isProprietaryBaseline) {
-                    dotRingClass = 'ring-4 ring-amber-400 border-white dark:border-slate-950 shadow-lg scale-110';
-                  } else if (vram.fitStatus === 'comfortable') {
+                  if (vram.fitStatus === 'comfortable') {
                     dotRingClass = 'ring-2 ring-teal-500/70 border-white dark:border-slate-950 shadow-sm';
                   } else if (vram.fitStatus === 'tight') {
                     dotRingClass = 'ring-2 ring-amber-500/70 border-white dark:border-slate-950 shadow-sm';
@@ -1075,11 +1091,6 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                           <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
                             {hoveredItem.model.creator}
                           </span>
-                          {hoveredItem.model.isProprietaryBaseline && (
-                            <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-700 dark:text-amber-300 uppercase">
-                              Frontier Baseline
-                            </span>
-                          )}
                         </div>
                         <h4 className="font-display text-sm font-bold text-slate-950 dark:text-white line-clamp-1">
                           {hoveredItem.model.name}
@@ -1088,7 +1099,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
 
                       <CompatibilityBadge
                         status={hoveredItem.vram.fitStatus}
-                        label={hoveredItem.model.isProprietaryBaseline ? 'Cloud API' : hoveredItem.vram.fitLabel}
+                        label={hoveredItem.vram.fitLabel}
                         size="xs"
                       />
                     </div>
@@ -1234,6 +1245,60 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
             </div>
 
             <div className="space-y-2 max-h-[520px] overflow-y-auto pr-2 locai-scrollbar">
+              {/* Frontier Reference Baseline Card */}
+              <div className="rounded-xl border border-amber-500/35 bg-amber-500/[0.06] p-3 text-left transition dark:border-amber-500/25 dark:bg-amber-950/20">
+                <div className="grid w-full grid-cols-12 items-center gap-3">
+                  <div className="col-span-12 sm:col-span-4 lg:col-span-3">
+                    <div className="flex items-center gap-1.5">
+                      <span className="h-2 w-2 rounded-full bg-amber-500" />
+                      <span className="font-display text-xs font-bold text-amber-950 dark:text-amber-200">
+                        {FRONTIER_BASELINE.name}
+                      </span>
+                      <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-800 uppercase dark:text-amber-300">
+                        Ceiling
+                      </span>
+                    </div>
+                    <div className="mt-0.5 text-[11px] text-amber-800/80 dark:text-amber-400/80">
+                      {FRONTIER_BASELINE.creator} · Closed Cloud Frontier API
+                    </div>
+                  </div>
+
+                  <div className="col-span-9 sm:col-span-6 lg:col-span-7 space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-amber-200/50 dark:bg-amber-950/60">
+                        <div
+                          className="h-full rounded-full bg-cyan-600 dark:bg-cyan-400"
+                          style={{ width: `${Math.min(100, FRONTIER_BASELINE.codingScore)}%` }}
+                        />
+                      </div>
+                      <span className="w-8 text-right font-mono-num text-xs font-bold text-cyan-700 dark:text-cyan-300">
+                        {FRONTIER_BASELINE.codingScore}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-2 flex-1 overflow-hidden rounded-full bg-amber-200/50 dark:bg-amber-950/60">
+                        <div
+                          className="h-full rounded-full bg-indigo-500 dark:bg-indigo-400"
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <span className="w-8 text-right font-mono-num text-xs font-bold text-indigo-700 dark:text-indigo-300">
+                        {FRONTIER_BASELINE.intelligenceScore}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="col-span-3 sm:col-span-2 text-right">
+                    <span className="font-mono-num text-[11px] font-semibold text-amber-800 dark:text-amber-300">
+                      Closed API
+                    </span>
+                    <div className="text-[10px] text-amber-700/70 dark:text-amber-400/70">
+                      0 GB Local VRAM
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {dualBarItems.map(({ model, vram }) => {
                 const fits = vram.isRunnable;
                 return (
@@ -1271,7 +1336,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                         <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-200/70 dark:bg-slate-800">
                           <div
                             className="h-full rounded-full bg-indigo-500 dark:bg-indigo-400"
-                            style={{ width: `${Math.min(100, (model.intelligenceScore / 46) * 100)}%` }}
+                            style={{ width: `${Math.min(100, (model.intelligenceScore / FRONTIER_BASELINE.intelligenceScore) * 100)}%` }}
                           />
                         </div>
                         <span className="w-8 text-right font-mono-num text-xs font-bold text-indigo-700 dark:text-indigo-300">
