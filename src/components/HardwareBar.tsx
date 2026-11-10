@@ -197,7 +197,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                     className={`relative rounded-lg py-2 px-2 text-center font-mono-num text-[11px] font-semibold transition-all duration-150 ${
                       active
                         ? 'border border-teal-600 bg-teal-600 text-white shadow-xs ring-2 ring-teal-500/20 dark:border-teal-400 dark:bg-teal-500 dark:text-slate-950'
-                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700'
+                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
                     }`}
                   >
                     {gpu.shortLabel}
@@ -258,7 +258,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                     className={`relative rounded-lg py-2 font-mono-num text-[11px] font-bold uppercase transition-all duration-150 ${
                       active
                         ? 'border border-cyan-600 bg-cyan-600 text-white shadow-xs ring-2 ring-cyan-500/20 dark:border-cyan-400 dark:bg-cyan-500 dark:text-slate-950'
-                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700'
+                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
                     }`}
                   >
                     {q.key}
@@ -337,7 +337,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                     className={`rounded-lg py-2 font-mono-num text-[11px] font-semibold transition-all duration-150 ${
                       active
                         ? 'border border-slate-900 bg-slate-900 text-white shadow-xs dark:border-white dark:bg-white dark:text-slate-950'
-                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700'
+                        : 'border border-slate-200/90 bg-slate-50/70 text-slate-700 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
                     }`}
                   >
                     {k}K

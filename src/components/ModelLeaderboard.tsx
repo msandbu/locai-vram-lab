@@ -192,7 +192,7 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
             className={`inline-flex h-8.5 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-all duration-150 ${
               onlyFitsGpu
                 ? 'border-teal-600 bg-teal-600 text-white shadow-2xs dark:border-teal-500 dark:bg-teal-500 dark:text-slate-950 font-semibold'
-                : 'border-slate-200/80 bg-slate-50/50 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:border-slate-700'
+                : 'border-slate-200/80 bg-slate-50/50 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
             }`}
           >
             <CheckCircle2 className="h-3.5 w-3.5" />
@@ -224,7 +224,7 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
             className={`inline-flex h-8.5 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition-all duration-150 ${
               permissiveOnly
                 ? 'border-cyan-600 bg-cyan-600 text-white font-semibold shadow-2xs dark:border-cyan-500 dark:bg-cyan-500 dark:text-slate-950'
-                : 'border-slate-200/80 bg-slate-50/50 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:border-slate-700'
+                : 'border-slate-200/80 bg-slate-50/50 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
             }`}
           >
             <Filter className="h-3 w-3" />

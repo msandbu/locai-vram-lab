@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FRONTIER_BASELINE, GpuPreset, LocalAIModel, QuantKey } from '../types/models';
 import { formatParamsB, VramEstimate } from '../utils/vram';
 import { CompatibilityBadge } from './CompatibilityBadge';
@@ -66,6 +66,34 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
   const [archFilter, setArchFilter] = useState<ArchFilter>('all');
   const [fitFilter, setFitFilter] = useState<FitFilter>('all');
   const [zoomToRig, setZoomToRig] = useState<boolean>(false);
+  const hoverClearTimerRef = useRef<number | null>(null);
+
+  const activateHover = (id: string) => {
+    if (hoverClearTimerRef.current !== null) {
+      window.clearTimeout(hoverClearTimerRef.current);
+      hoverClearTimerRef.current = null;
+    }
+    setHoveredId(id);
+  };
+
+  const cancelHoverClear = () => {
+    if (hoverClearTimerRef.current !== null) {
+      window.clearTimeout(hoverClearTimerRef.current);
+      hoverClearTimerRef.current = null;
+    }
+  };
+
+  const scheduleHoverClear = (delayMs = 200) => {
+    cancelHoverClear();
+    hoverClearTimerRef.current = window.setTimeout(() => {
+      setHoveredId(null);
+      hoverClearTimerRef.current = null;
+    }, delayMs);
+  };
+
+  useEffect(() => {
+    return () => cancelHoverClear();
+  }, []);
 
   // Telemetry highlights
   const fittingModels = useMemo(
@@ -336,7 +364,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition ${
                   selectedCompareIds.includes(bestOverallForGpu.model.id)
                     ? 'bg-teal-500 text-white'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
                 {selectedCompareIds.includes(bestOverallForGpu.model.id) ? (
@@ -488,7 +516,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                     (showEfficiencyTile ? bestEfficiencyForGpu! : bestCoderForGpu!).model.id
                   )
                     ? 'bg-cyan-600 text-white'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
                 {selectedCompareIds.includes(
@@ -587,7 +615,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition ${
                   selectedCompareIds.includes(fastestFitting.model.id)
                     ? 'bg-amber-600 text-white'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
                 {selectedCompareIds.includes(fastestFitting.model.id) ? (
@@ -700,7 +728,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition ${
                   selectedCompareIds.includes(topIntelOverall.model.id)
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
                 {selectedCompareIds.includes(topIntelOverall.model.id) ? (
@@ -733,7 +761,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
               className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
                 activeTab === 'scatter'
                   ? 'bg-teal-600 text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
-                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:text-white'
+                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white'
               }`}
             >
               <Compass className="h-3.5 w-3.5" />
@@ -747,7 +775,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
               className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
                 activeTab === 'dual-bars'
                   ? 'bg-teal-600 text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
-                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:text-white'
+                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white'
               }`}
             >
               <BarChart3 className="h-3.5 w-3.5" />
@@ -761,7 +789,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
               className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition ${
                 activeTab === 'vram-stack'
                   ? 'bg-teal-600 text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
-                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:text-white'
+                  : 'bg-white/80 text-slate-600 hover:bg-slate-200/70 hover:text-slate-950 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white'
               }`}
             >
               <Layers className="h-3.5 w-3.5" />
@@ -908,7 +936,12 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
             </div>
 
             {/* Scatter Canvas Container */}
-            <div className="relative flex flex-col justify-between h-[440px] w-full select-none rounded-2xl border border-slate-200/90 bg-[#f8fafc] pt-7 pr-4 pb-4 pl-12 sm:h-[480px] dark:border-slate-800/90 dark:bg-[#090c13]">
+            <div
+              onMouseLeave={() => scheduleHoverClear(180)}
+              onMouseEnter={cancelHoverClear}
+              onClick={() => setHoveredId(null)}
+              className="relative flex flex-col justify-between h-[440px] w-full select-none rounded-2xl border border-slate-200/90 bg-[#f8fafc] pt-7 pr-4 pb-4 pl-12 sm:h-[480px] dark:border-slate-800/90 dark:bg-[#090c13]"
+            >
               <div className="relative flex-1 w-full mb-7">
                 {/* Runnable Hardware Zone Shading */}
                 <div
@@ -1021,10 +1054,12 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   const isLabeled = scatterData.labeledIds.has(model.id);
                   const isHovered = hoveredId === model.id;
                   const isCompared = selectedCompareIds.includes(model.id);
+                  const fallbackPlacement = y < 16 ? 'bottom' : 'top';
+                  const fallbackAlign = x > 84 ? 'right' : x < 12 ? 'left' : 'center';
                   const layout = scatterData.labelLayout[model.id] ?? {
-                    placement: 'top',
-                    align: 'center',
-                    offsetClass: 'bottom-full mb-1.5',
+                    placement: fallbackPlacement,
+                    align: fallbackAlign,
+                    offsetClass: fallbackPlacement === 'top' ? 'bottom-full mb-1.5' : 'top-full mt-2',
                   };
 
                   const alignClass =
@@ -1062,20 +1097,20 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                     >
                       <button
                         type="button"
-                        onMouseEnter={() => setHoveredId(model.id)}
-                        onMouseLeave={() => setHoveredId((prev) => (prev === model.id ? null : prev))}
-                        onFocus={() => setHoveredId(model.id)}
-                        onBlur={() => setHoveredId(null)}
-                        onClick={() => onSelectModel(model)}
+                        onMouseEnter={() => activateHover(model.id)}
+                        onFocus={() => activateHover(model.id)}
+                        onBlur={() => scheduleHoverClear(150)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectModel(model);
+                        }}
                         aria-label={`${model.name}: ${score} score, ${vram.totalVramGb} GB VRAM (${vram.fitLabel})`}
-                        className={`group relative flex items-center justify-center rounded-full transition-transform duration-150 ${
-                          isHovered ? 'scale-140' : 'hover:scale-125'
-                        }`}
+                        className="group relative flex h-6 w-6 items-center justify-center rounded-full"
                       >
                         <span
-                          className={`block rounded-full border-2 transition ${
+                          className={`block rounded-full border-2 transition-transform duration-150 ${
                             isPareto ? 'h-4 w-4' : 'h-3.5 w-3.5'
-                          } ${dotRingClass}`}
+                          } ${isHovered ? 'scale-125' : 'group-hover:scale-125'} ${dotRingClass}`}
                           style={{ backgroundColor: dotBg }}
                         />
 
@@ -1098,8 +1133,17 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 })}
 
                 {/* Rich Floating Telemetry Card on Hover */}
-                {hoveredItem && (
-                  <div className="pointer-events-auto absolute right-3 bottom-3 z-50 w-80 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-2xl backdrop-blur-md dark:border-slate-700 dark:bg-[#121622]/95 animate-fade-in">
+                {hoveredItem && (() => {
+                  const hoveredX = scatterData.xPct(hoveredItem.vram.totalVramGb);
+                  const placeCardLeft = hoveredX > 52;
+                  return (
+                  <div
+                    onMouseEnter={cancelHoverClear}
+                    onClick={(e) => e.stopPropagation()}
+                    className={`pointer-events-auto absolute bottom-3 ${
+                      placeCardLeft ? 'left-3' : 'right-3'
+                    } z-50 w-80 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-2xl backdrop-blur-md dark:border-slate-700 dark:bg-[#121622]/95 animate-fade-in`}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <div className="flex items-center gap-1.5">
@@ -1210,7 +1254,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                           className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-medium transition ${
                             selectedCompareIds.includes(hoveredItem.model.id)
                               ? 'bg-teal-500 text-white'
-                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'
+                              : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                           }`}
                         >
                           {selectedCompareIds.includes(hoveredItem.model.id) ? (
@@ -1228,7 +1272,8 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                       )}
                     </div>
                   </div>
-                )}
+                  );
+                })()}
               </div>
 
               {/* X Axis Description */}
@@ -1427,10 +1472,10 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                     key={model.id}
                     type="button"
                     onClick={() => onSelectModel(model)}
-                    className="group grid w-full grid-cols-12 items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-3.5 py-2 text-left transition hover:border-teal-500/40 hover:bg-white dark:border-slate-800/70 dark:bg-slate-900/40"
+                    className="group grid w-full grid-cols-12 items-center gap-3 rounded-xl border border-slate-100 bg-slate-50/60 px-3.5 py-2 text-left transition hover:border-teal-500/40 hover:bg-white dark:border-slate-800/70 dark:bg-slate-900/40 dark:hover:bg-slate-900"
                   >
                     <div className="col-span-12 sm:col-span-3 truncate">
-                      <span className="font-display text-xs font-bold text-slate-950 group-hover:text-teal-600 dark:text-slate-100">
+                      <span className="font-display text-xs font-bold text-slate-950 group-hover:text-teal-600 dark:text-slate-100 dark:group-hover:text-teal-400">
                         {model.name}
                       </span>
                       <span className="ml-1.5 font-mono-num text-[10px] text-slate-400">

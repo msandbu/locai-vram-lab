@@ -231,7 +231,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                   className={`rounded-lg px-2.5 py-1 font-mono-num text-[11px] font-medium transition-all ${
                     active
                       ? 'bg-teal-600 font-semibold text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
-                      : 'border border-slate-200/80 bg-slate-50/60 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-slate-700'
+                      : 'border border-slate-200/80 bg-slate-50/60 text-slate-600 hover:border-slate-300 hover:bg-white dark:border-slate-800/80 dark:bg-slate-900/50 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:bg-slate-800'
                   }`}
                 >
                   {wl.label}
