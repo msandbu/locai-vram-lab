@@ -198,14 +198,14 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-xs"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/65 p-4 backdrop-blur-xs animate-fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="feedback-modal-title"
     >
       <div
-        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl locai-scrollbar dark:border-slate-800 dark:bg-[#121620]"
+        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl locai-scrollbar dark:border-slate-800 dark:bg-[#11151f]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -276,43 +276,46 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
           {/* Primary Info */}
           <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-model-name" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Model Name <span className="text-rose-500">*</span>
               </label>
               <input
+                id="fb-model-name"
                 type="text"
                 value={modelName}
                 onChange={(e) => setModelName(e.target.value)}
                 placeholder="e.g. DeepSeek-Coder-V3 32B"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-creator" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Creator / GitHub Org
               </label>
               <input
+                id="fb-creator"
                 type="text"
                 value={creator}
                 onChange={(e) => setCreator(e.target.value)}
                 placeholder="e.g. Moonshot AI, Alibaba, Mistral"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
           </div>
 
           <div>
-            <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <label htmlFor="fb-url" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               GitHub Repo or Hugging Face GGUF URL{' '}
               {mode === 'missing-model' && <span className="text-rose-500">*</span>}
             </label>
             <input
+              id="fb-url"
               type="url"
               value={repoOrHfUrl}
               onChange={(e) => setRepoOrHfUrl(e.target.value)}
               placeholder="https://github.com/... or https://huggingface.co/unsloth/..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
             />
           </div>
 
@@ -320,10 +323,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
           {mode === 'missing-model' && (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label htmlFor="fb-arch" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Architecture
                 </label>
                 <select
+                  id="fb-arch"
                   value={architecture}
                   onChange={(e) => setArchitecture(e.target.value as ArchitectureType)}
                   className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-2.5 py-2 text-xs font-semibold text-slate-900 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
@@ -334,10 +338,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label htmlFor="fb-total-params" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Total Params (B)
                 </label>
                 <input
+                  id="fb-total-params"
                   type="number"
                   step="any"
                   min="0.1"
@@ -348,10 +353,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label htmlFor="fb-active-params" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Active Params (B)
                 </label>
                 <input
+                  id="fb-active-params"
                   type="number"
                   step="any"
                   min="0.1"
@@ -363,10 +369,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <label htmlFor="fb-context" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Max Context (K)
                 </label>
                 <input
+                  id="fb-context"
                   type="number"
                   step="1"
                   min="2"
@@ -381,10 +388,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
           {/* Optional Scores, License & Measured Q4 */}
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-coding-score" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Coding Score
               </label>
               <input
+                id="fb-coding-score"
                 type="number"
                 step="any"
                 min="0"
@@ -392,15 +400,16 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 value={codingScore}
                 onChange={(e) => setCodingScore(e.target.value)}
                 placeholder="Optional (0–100)"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-intel-score" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Intelligence
               </label>
               <input
+                id="fb-intel-score"
                 type="number"
                 step="any"
                 min="0"
@@ -408,35 +417,37 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 value={intelligenceScore}
                 onChange={(e) => setIntelligenceScore(e.target.value)}
                 placeholder="Optional"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-q4-size" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 Q4 Size (GB)
               </label>
               <input
+                id="fb-q4-size"
                 type="number"
                 step="any"
                 min="0"
                 value={q4WeightsGb}
                 onChange={(e) => setQ4WeightsGb(e.target.value)}
                 placeholder="Auto-est."
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 font-mono-num text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
 
             <div>
-              <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+              <label htmlFor="fb-license" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
                 License
               </label>
               <input
+                id="fb-license"
                 type="text"
                 value={license}
                 onChange={(e) => setLicense(e.target.value)}
                 placeholder="Apache 2.0 / MIT"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+                className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
               />
             </div>
           </div>
@@ -455,15 +466,16 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
+            <label htmlFor="fb-notes" className="mb-1 block text-xs font-semibold text-slate-700 dark:text-slate-300">
               Notes / Benchmark Links / Hardware Tested
             </label>
             <textarea
+              id="fb-notes"
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Optional notes on quantization quality, VRAM observations, or benchmark citations..."
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white"
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-2 text-xs text-slate-900 placeholder:text-slate-500 outline-none focus:border-teal-500 focus:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400"
             />
           </div>
 

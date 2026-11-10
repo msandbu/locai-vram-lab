@@ -1,6 +1,6 @@
 import React from 'react';
 import { GpuPreset, LocalAIModel, QuantLevelInfo } from '../types/models';
-import { estimateModelVram } from '../utils/vram';
+import { estimateModelVram, getCreatorInitials } from '../utils/vram';
 import { CompatibilityBadge } from './CompatibilityBadge';
 import { ExternalLink, X, Cpu, Check, Copy } from 'lucide-react';
 
@@ -50,7 +50,7 @@ export const ModelDetailModal: React.FC<ModelDetailModalProps> = ({
               className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl font-display text-sm font-bold text-white shadow-xs"
               style={{ backgroundColor: model.creatorColor }}
             >
-              {model.creator.slice(0, 2).toUpperCase()}
+              {getCreatorInitials(model.creator)}
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
@@ -87,13 +87,29 @@ export const ModelDetailModal: React.FC<ModelDetailModalProps> = ({
           </button>
         </div>
 
-        {/* Hardware Verdict */}
-        {model.notes && (
-          <div className="mt-4 rounded-xl border border-teal-500/25 bg-teal-500/[0.06] p-3.5 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
-            <strong className="text-teal-900 dark:text-teal-300">Local Hardware Verdict: </strong>
-            {model.notes}
+        {/* Hardware Verdict & Quick Run Command */}
+        <div className="mt-4 space-y-3">
+          {model.notes && (
+            <div className="rounded-xl border border-teal-500/25 bg-teal-500/[0.06] p-3.5 text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+              <strong className="text-teal-900 dark:text-teal-300">Local Hardware Verdict: </strong>
+              {model.notes}
+            </div>
+          )}
+
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-slate-950 px-3.5 py-2.5 text-xs dark:border-slate-800">
+            <code className="truncate font-mono-num text-[11px] text-teal-300">
+              {model.runCommand || `ollama run ${model.id.toLowerCase()}`}
+            </code>
+            <button
+              type="button"
+              onClick={handleCopyCommand}
+              className="shrink-0 inline-flex items-center gap-1 rounded-lg bg-slate-800 px-2.5 py-1 font-mono-num text-[11px] font-semibold text-slate-200 transition hover:bg-slate-700 hover:text-white"
+            >
+              {copied ? <Check className="h-3 w-3 text-teal-400" /> : <Copy className="h-3 w-3 text-slate-400" />}
+              <span>{copied ? 'Copied' : 'Copy CLI'}</span>
+            </button>
           </div>
-        )}
+        </div>
 
         {/* Score Cards */}
         <div className="mt-5 grid grid-cols-1 gap-3.5 sm:grid-cols-2">

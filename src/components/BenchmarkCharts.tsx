@@ -632,13 +632,19 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   Global reasoning benchmark ceiling in the open-weights catalog.
                 </p>
 
-                {/* Status Indicator: clearly communicates non-runnable on current hardware */}
+                {/* Status Indicator: accurately communicates runnable vs non-runnable on current hardware */}
                 <div className="mt-3">
                   <div className="flex items-center justify-between text-xs font-mono-num">
-                    <span className="flex items-center gap-1 font-semibold text-rose-600 dark:text-rose-400">
-                      <AlertTriangle className="h-3 w-3" />
-                      Requires {topIntelOverall.vram.minTierLabel}+
-                    </span>
+                    {topIntelOverall.vram.isRunnable ? (
+                      <span className="font-semibold text-teal-700 dark:text-teal-400">
+                        +{topIntelOverall.vram.headroomGb} GB headroom
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 font-semibold text-rose-600 dark:text-rose-400">
+                        <AlertTriangle className="h-3 w-3" />
+                        Requires {topIntelOverall.vram.minTierLabel}+
+                      </span>
+                    )}
                     <span className="font-bold text-indigo-600 dark:text-indigo-400">
                       Intel: {topIntelOverall.model.intelligenceScore}
                     </span>
@@ -646,18 +652,31 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                   <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
                     <div
                       className="h-full bg-indigo-500 rounded-full transition-all"
-                      style={{ width: '100%' }}
+                      style={{
+                        width: topIntelOverall.vram.isRunnable
+                          ? `${Math.min(
+                              100,
+                              Math.round((topIntelOverall.vram.totalVramGb / selectedGpu.vramGb) * 100)
+                            )}%`
+                          : '100%',
+                      }}
                     />
                   </div>
                 </div>
 
                 <div className="mt-3 flex items-center justify-between font-mono-num text-xs">
-                  <span className="text-slate-400 dark:text-slate-500">
+                  <span className="text-slate-500 dark:text-slate-400">
                     {topIntelOverall.vram.totalVramGb} GB footprint
                   </span>
-                  <span className="rounded bg-rose-500/10 px-1.5 py-0.2 text-[10px] font-semibold text-rose-600 dark:text-rose-400">
-                    Exceeds {selectedGpu.shortLabel}
-                  </span>
+                  {topIntelOverall.vram.isRunnable ? (
+                    <span className="rounded bg-teal-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-teal-700 dark:text-teal-300">
+                      Fits {selectedGpu.shortLabel}
+                    </span>
+                  ) : (
+                    <span className="rounded bg-rose-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-rose-600 dark:text-rose-400">
+                      Exceeds {selectedGpu.shortLabel}
+                    </span>
+                  )}
                 </div>
               </div>
             ) : (
@@ -883,7 +902,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                 </span>
               </div>
 
-              <div className="text-[11px] font-mono-num text-slate-400">
+              <div className="text-[11px] font-mono-num text-slate-500 dark:text-slate-400">
                 Showing {filteredScatterItems.length} models
               </div>
             </div>
@@ -908,7 +927,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                       className="pointer-events-none absolute right-0 left-0 border-t border-slate-200/70 dark:border-slate-800/70"
                       style={{ top: `${top}%` }}
                     >
-                      <span className="absolute -top-2 -left-10 w-8 text-right font-mono-num text-[10px] text-slate-400">
+                      <span className="absolute -top-2 -left-10 w-8 text-right font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
                         {tick}
                       </span>
                     </div>
@@ -956,7 +975,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                         className={`absolute -top-5 -translate-x-1/2 rounded-md px-1.5 py-0.5 font-mono-num text-[10px] whitespace-nowrap ${
                           isSelected
                             ? 'bg-teal-600 font-bold text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
-                            : 'text-slate-400 dark:text-slate-500'
+                            : 'text-slate-500 dark:text-slate-400'
                         }`}
                       >
                         {isSelected ? `RIG ${topTierLabel}` : topTierLabel}
@@ -1213,7 +1232,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
               </div>
 
               {/* X Axis Description */}
-              <div className="text-center font-mono-num text-[11px] text-slate-400 dark:text-slate-500">
+              <div className="text-center font-mono-num text-[11px] text-slate-500 dark:text-slate-400">
                 Required Memory Footprint (Weights + KV Cache + Overhead in GB · Logarithmic Scale)
               </div>
             </div>
@@ -1254,7 +1273,7 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
                       <span className="font-display text-xs font-bold text-amber-950 dark:text-amber-200">
                         {FRONTIER_BASELINE.name}
                       </span>
-                      <span className="rounded bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-800 uppercase dark:text-amber-300">
+                      <span className="rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-bold text-amber-800 uppercase dark:text-amber-300">
                         Ceiling
                       </span>
                     </div>

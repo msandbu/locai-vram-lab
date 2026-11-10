@@ -40,8 +40,17 @@ export const ModelCompareModal: React.FC<ModelCompareModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="relative flex max-h-[92vh] w-full max-w-6xl flex-col rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-[#0e121a]">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-sm animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="compare-modal-title"
+    >
+      <div
+        className="relative flex max-h-[92vh] w-full max-w-6xl flex-col rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-[#11151f]"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-200/80 px-6 py-4 dark:border-slate-800">
           <div>
@@ -49,7 +58,10 @@ export const ModelCompareModal: React.FC<ModelCompareModalProps> = ({
               <span className="flex h-6 w-6 items-center justify-center rounded-md bg-teal-500/10 text-teal-600 dark:text-teal-400">
                 <Layers className="h-3.5 w-3.5" />
               </span>
-              <h2 className="font-display text-lg font-bold text-slate-900 dark:text-white">
+              <h2
+                id="compare-modal-title"
+                className="font-display text-lg font-bold text-slate-900 dark:text-white"
+              >
                 Side-by-Side Model Comparison
               </h2>
               <span className="rounded-md border border-slate-200 bg-slate-100 px-2 py-0.5 font-mono-num text-[11px] font-semibold text-slate-600 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300">
@@ -64,7 +76,7 @@ export const ModelCompareModal: React.FC<ModelCompareModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+            className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
             aria-label="Close comparison"
           >
             <X className="h-5 w-5" />
@@ -72,7 +84,7 @@ export const ModelCompareModal: React.FC<ModelCompareModalProps> = ({
         </div>
 
         {/* Comparison Columns Container */}
-        <div className="overflow-x-auto overflow-y-auto p-6">
+        <div className="overflow-x-auto overflow-y-auto p-6 locai-scrollbar">
           <div className="grid min-w-[640px] grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {models.map(({ model, vram }) => {
               const usedPct = Math.min(100, Math.round((vram.totalVramGb / selectedGpu.vramGb) * 100));

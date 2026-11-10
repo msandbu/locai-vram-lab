@@ -83,7 +83,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
               Hardware Sizing Engine
             </span>
           </div>
-          <span className="hidden text-[11px] text-slate-400 lg:inline">
+          <span className="hidden text-[11px] text-slate-500 lg:inline dark:text-slate-400">
             — Hardware budget, precision quantization &amp; context memory
           </span>
         </div>
@@ -119,17 +119,17 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
       {/* Visual Memory Allocation & Headroom Bar */}
       <div className="border-b border-slate-100 bg-slate-50/40 px-5 py-2.5 dark:border-slate-800/40 dark:bg-[#0e121b]">
         <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 text-[11px]">
-            <span className="font-medium text-slate-500 dark:text-slate-400">Memory Budget:</span>
+          <div className="flex flex-wrap items-center gap-2 text-[11px]">
+            <span className="font-medium text-slate-600 dark:text-slate-400">Memory Budget:</span>
             <span className="font-mono-num font-bold text-slate-900 dark:text-white">
               {physicalGb >= 1024 ? `${physicalGb / 1024} TB` : `${physicalGb} GB`} Physical
             </span>
             <span className="text-slate-300 dark:text-slate-600">|</span>
-            <span className="font-mono-num font-semibold text-teal-600 dark:text-teal-400">
+            <span className="font-mono-num font-semibold text-teal-700 dark:text-teal-400">
               ~{usableGb >= 1024 ? `${(usableGb / 1024).toFixed(1)} TB` : `${usableGb} GB`} Usable for Weights + KV
             </span>
             <span className="text-slate-300 dark:text-slate-600">|</span>
-            <span className="font-mono-num text-slate-400 dark:text-slate-500">
+            <span className="font-mono-num text-slate-500 dark:text-slate-400">
               ~{systemReserveGb} GB OS / Driver Reserve
             </span>
           </div>
@@ -168,8 +168,10 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
               </span>
               <button
                 type="button"
+                aria-expanded={showVramInfo}
+                aria-label="Explain physical vs usable VRAM"
                 onClick={() => setShowVramInfo((v) => !v)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                className="rounded p-0.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                 title="Explain physical vs usable VRAM"
               >
                 <Info className="h-3.5 w-3.5" />
@@ -189,6 +191,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                   <button
                     key={gpu.id}
                     type="button"
+                    aria-pressed={active}
                     onClick={() => onSelectGpu(gpu)}
                     title={`${gpu.name} — ${gpu.examples} (${gpu.bandwidthGbS} GB/s)`}
                     className={`relative rounded-lg py-2 px-2 text-center font-mono-num text-[11px] font-semibold transition-all duration-150 ${
@@ -207,7 +210,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
             </div>
           </div>
 
-          <p className="mt-2.5 truncate text-[11px] text-slate-400 dark:text-slate-400">
+          <p className="mt-2.5 truncate text-[11px] text-slate-500 dark:text-slate-400">
             <span className="font-medium text-slate-700 dark:text-slate-300">
               {selectedGpu.category}:
             </span>{' '}
@@ -225,8 +228,10 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
               </span>
               <button
                 type="button"
+                aria-expanded={showQuantInfo}
+                aria-label="Explain quantization bits-per-weight and quality retention"
                 onClick={() => setShowQuantInfo((v) => !v)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                className="rounded p-0.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                 title="Explain quantization bpw & quality retention"
               >
                 <Info className="h-3.5 w-3.5" />
@@ -247,6 +252,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                   <button
                     key={q.key}
                     type="button"
+                    aria-pressed={active}
                     onClick={() => onSelectQuant(q.key)}
                     title={`${q.label} (~${q.bitsPerWeight} bpw, ~${q.codingRetentionPct}% code quality)`}
                     className={`relative rounded-lg py-2 font-mono-num text-[11px] font-bold uppercase transition-all duration-150 ${
@@ -272,7 +278,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
             <span className="font-mono-num font-medium text-cyan-700 dark:text-cyan-300">
               {activeQuantInfo?.ggufTag} (~{activeQuantInfo?.bitsPerWeight} bpw)
             </span>
-            <span className="text-slate-400 dark:text-slate-400">
+            <span className="text-slate-500 dark:text-slate-400">
               {activeQuantInfo?.vramSavingsPct}% saved vs 16-bit
             </span>
           </div>
@@ -288,8 +294,10 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                 </span>
                 <button
                   type="button"
+                  aria-expanded={showContextInfo}
+                  aria-label="Explain context window memory usage"
                   onClick={() => setShowContextInfo((v) => !v)}
-                  className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
+                  className="rounded p-0.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                   title="Explain context window memory usage"
                 >
                   <Info className="h-3.5 w-3.5" />
@@ -297,6 +305,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
               </div>
               <button
                 type="button"
+                aria-pressed={kvQuantQ8}
                 onClick={onToggleKvQuant}
                 className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-mono-num text-[10px] font-semibold transition-all ${
                   kvQuantQ8
@@ -323,6 +332,7 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
                   <button
                     key={k}
                     type="button"
+                    aria-pressed={active}
                     onClick={() => onSelectContextK(k)}
                     className={`rounded-lg py-2 font-mono-num text-[11px] font-semibold transition-all duration-150 ${
                       active
@@ -337,8 +347,8 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
             </div>
           </div>
 
-          <p className="mt-2.5 truncate text-[11px] text-slate-400 dark:text-slate-400">
-            {kvQuantQ8 ? 'Q8_0 KV (-50% context VRAM)' : 'FP16 KV Cache (standard precision)'}
+          <p className="mt-2.5 truncate text-[11px] text-slate-500 dark:text-slate-400">
+            {kvQuantQ8 ? 'Q8_0 KV (-46% context VRAM)' : 'FP16 KV Cache (standard precision)'}
           </p>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { QuantFormatInfo, QuantKey, QuantLevelInfo, FaqItem } from '../types/models';
 import { QuantizationGuide } from './QuantizationGuide';
 import { FaqAndSources } from './FaqAndSources';
-import { ArrowLeft, BookOpen, HelpCircle, Layers } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Layers } from 'lucide-react';
 
 interface GuidePageProps {
   levels: QuantLevelInfo[];
@@ -56,11 +56,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({
           </div>
 
           <div className="mt-6 max-w-3xl">
-            <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-teal-600 uppercase dark:text-teal-400">
-              <BookOpen className="h-4 w-4" />
-              <span>Technical Knowledge Base &amp; Documentation</span>
-            </div>
-            <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
+            <h1 className="font-display text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl dark:text-white">
               Quantization Deep-Dive &amp; Methodology
             </h1>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
@@ -77,6 +73,7 @@ export const GuidePage: React.FC<GuidePageProps> = ({
           formats={formats}
           selectedQuant={selectedQuant}
           onSelectQuant={onSelectQuant}
+          onBackToWorkbench={onBackToWorkbench}
         />
 
         <div className="border-t border-slate-200/70 pt-16 dark:border-slate-800/70">

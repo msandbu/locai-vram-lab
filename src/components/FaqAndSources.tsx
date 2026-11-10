@@ -52,13 +52,10 @@ export const FaqAndSources: React.FC<FaqAndSourcesProps> = ({ faqs }) => {
       <div className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="font-mono-num text-[11px] font-semibold tracking-widest text-teal-600 uppercase dark:text-teal-400">
-              // KNOWLEDGE BASE
-            </span>
-            <h2 className="mt-1 font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
+            <h2 className="font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
               Local LLM &amp; Quantization FAQs
             </h2>
-            <p className="mt-1 text-xs text-slate-500 sm:text-sm dark:text-slate-400">
+            <p className="mt-1 text-xs text-slate-600 sm:text-sm dark:text-slate-400">
               Answers on VRAM overhead math, KV cache compression, MoE RAM offloading, and coding retention.
             </p>
           </div>
@@ -68,11 +65,12 @@ export const FaqAndSources: React.FC<FaqAndSourcesProps> = ({ faqs }) => {
               <button
                 key={cat}
                 type="button"
+                aria-pressed={categoryFilter === cat}
                 onClick={() => setCategoryFilter(cat)}
                 className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
                   categoryFilter === cat
                     ? 'bg-teal-600 text-white dark:bg-teal-500 dark:text-slate-950'
-                    : 'border border-slate-200 bg-white text-slate-600 hover:border-teal-500/40 dark:border-slate-800 dark:bg-[#121620] dark:text-slate-300'
+                    : 'border border-slate-200 bg-white text-slate-600 hover:border-teal-500/40 dark:border-slate-800 dark:bg-[#11151f] dark:text-slate-300'
                 }`}
               >
                 {cat}
@@ -81,7 +79,7 @@ export const FaqAndSources: React.FC<FaqAndSourcesProps> = ({ faqs }) => {
           </div>
         </div>
 
-        <div className="divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xs dark:divide-slate-800 dark:border-slate-800 dark:bg-[#121620]">
+        <div className="divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-2xs dark:divide-slate-800 dark:border-slate-800 dark:bg-[#11151f]">
           {visibleFaqs.map((item) => {
             const isOpen = !!openIds[item.id];
             return (
@@ -98,13 +96,13 @@ export const FaqAndSources: React.FC<FaqAndSourcesProps> = ({ faqs }) => {
                       <span className="font-display text-sm font-bold text-slate-950 dark:text-white">
                         {item.question}
                       </span>
-                      <span className="ml-2 inline-block rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                      <span className="ml-2 inline-block rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-400">
                         {item.category}
                       </span>
                     </div>
                   </div>
                   <ChevronDown
-                    className={`h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200 ${
+                    className={`h-4 w-4 shrink-0 text-slate-500 transition-transform duration-200 dark:text-slate-400 ${
                       isOpen ? 'rotate-180' : ''
                     }`}
                   />

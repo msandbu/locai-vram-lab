@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { QuantFormatInfo, QuantKey, QuantLevelInfo } from '../types/models';
-import { AlertTriangle, Check, Info, Layers, ShieldCheck, X } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Check, Info, Layers, ShieldCheck, X } from 'lucide-react';
 
 interface QuantizationGuideProps {
   levels: QuantLevelInfo[];
   formats: QuantFormatInfo[];
   selectedQuant: QuantKey;
   onSelectQuant: (q: QuantKey) => void;
+  onBackToWorkbench?: () => void;
 }
 
 export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
@@ -14,23 +15,37 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
   formats,
   selectedQuant,
   onSelectQuant,
+  onBackToWorkbench,
 }) => {
   const [activeFormatId, setActiveFormatId] = useState<string>(formats[0]?.id ?? 'unsloth-ud');
   const activeFormat = formats.find((f) => f.id === activeFormatId) ?? formats[0];
+  const activeLevel = levels.find((l) => l.key === selectedQuant);
 
   return (
     <section id="quant-guide" className="scroll-mt-20 space-y-7">
       {/* Section Header */}
-      <div>
-        <span className="font-mono-num text-[11px] font-semibold tracking-widest text-cyan-600 uppercase dark:text-cyan-400">
-          // PRECISION &amp; COMPRESSION GUIDE
-        </span>
-        <h2 className="mt-1 font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
-          Quantization Levels &amp; Runtime Formats Explained
-        </h2>
-        <p className="mt-1.5 max-w-3xl text-xs text-slate-500 sm:text-sm dark:text-slate-400">
-          Quantization packs 16-bit weights into compact bit-depths so large open-weight models fit consumer VRAM while accelerating memory-bandwidth-bound token generation. Click any precision card below to simulate it across the entire workbench.
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 className="font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
+            Quantization Levels &amp; Runtime Formats Explained
+          </h2>
+          <p className="mt-1.5 max-w-3xl text-xs text-slate-600 sm:text-sm dark:text-slate-400">
+            Quantization packs 16-bit weights into compact bit-depths so large open-weight models fit consumer VRAM while accelerating memory-bandwidth-bound token generation. Click any precision card below to simulate it across the entire workbench.
+          </p>
+        </div>
+
+        {activeLevel && onBackToWorkbench && (
+          <button
+            type="button"
+            onClick={onBackToWorkbench}
+            className="inline-flex items-center gap-2 rounded-xl border border-teal-500/30 bg-teal-500/10 px-3.5 py-2 text-xs font-semibold text-teal-800 transition hover:bg-teal-500/20 dark:text-teal-300"
+          >
+            <span>
+              Simulating <strong className="font-mono-num">{activeLevel.ggufTag}</strong> in Workbench
+            </span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
 
       {/* Part 1: Precision Cards Grid (Original 2x3 Interactive Bit-Depth Cards!) */}
@@ -43,11 +58,12 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
             <button
               key={lvl.key}
               type="button"
+              aria-pressed={isSelected}
               onClick={() => onSelectQuant(lvl.key)}
               className={`group flex flex-col justify-between rounded-2xl border p-5 text-left transition ${
                 isSelected
                   ? 'border-teal-500 bg-teal-500/[0.05] ring-2 ring-teal-500/20 dark:border-teal-400 dark:bg-teal-500/[0.08]'
-                  : 'border-slate-200/90 bg-white hover:border-teal-500/40 dark:border-slate-800 dark:bg-[#121620]'
+                  : 'border-slate-200/90 bg-white hover:border-teal-500/40 dark:border-slate-800 dark:bg-[#11151f]'
               }`}
             >
               <div>
@@ -66,7 +82,7 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
                       Sweet Spot
                     </span>
                   ) : (
-                    <span className="font-mono-num text-[11px] text-slate-400">
+                    <span className="font-mono-num text-[11px] text-slate-500 dark:text-slate-400">
                       ~{lvl.bitsPerWeight} bpw
                     </span>
                   )}
@@ -83,7 +99,7 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
               <div className="mt-4 space-y-2.5 border-t border-slate-100 pt-3.5 dark:border-slate-800/80">
                 <div>
                   <div className="mb-1 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-500 dark:text-slate-400">General Quality</span>
+                    <span className="text-slate-600 dark:text-slate-400">General Quality</span>
                     <span className="font-mono-num font-bold text-slate-900 dark:text-white">
                       {lvl.qualityRetentionPct}%
                     </span>
@@ -98,7 +114,7 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
 
                 <div>
                   <div className="mb-1 flex items-center justify-between text-[11px]">
-                    <span className="text-slate-500 dark:text-slate-400">Coding Retention</span>
+                    <span className="text-slate-600 dark:text-slate-400">Coding Retention</span>
                     <span
                       className={`font-mono-num font-bold ${
                         lvl.codingRetentionPct >= 96
@@ -125,7 +141,7 @@ export const QuantizationGuide: React.FC<QuantizationGuideProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-1 font-mono-num text-[10px] text-slate-400">
+                <div className="flex items-center justify-between pt-1 font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
                   <span>VRAM saved vs 16-bit: {lvl.vramSavingsPct}%</span>
                   <span className="font-semibold text-teal-600 group-hover:underline dark:text-teal-400">
                     {isSelected ? 'Active ✓' : 'Simulate →'}

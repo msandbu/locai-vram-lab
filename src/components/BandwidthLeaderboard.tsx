@@ -175,8 +175,13 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
     return peak;
   }, [filteredAndSorted]);
 
+  const getAriaSort = (field: BandwidthSortField): 'ascending' | 'descending' | 'none' => {
+    if (sortField !== field) return 'none';
+    return sortDir === 'asc' ? 'ascending' : 'descending';
+  };
+
   const renderSortIcon = (field: BandwidthSortField) => {
-    if (sortField !== field) return <ArrowUpDown className="h-3 w-3 opacity-40" />;
+    if (sortField !== field) return <ArrowUpDown className="h-3 w-3 opacity-45" />;
     return sortDir === 'desc' ? (
       <ArrowDown className="h-3 w-3 text-teal-600 dark:text-teal-400" />
     ) : (
@@ -195,21 +200,18 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
       {/* Section Header + Live Workload Simulator Selector */}
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <span className="font-mono-num text-[11px] font-semibold tracking-widest text-teal-600 uppercase dark:text-teal-400">
-            // SILICON MEMORY THROUGHPUT
-          </span>
-          <h2 className="mt-1 font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
+          <h2 className="font-display text-2xl font-bold text-slate-950 sm:text-3xl dark:text-white">
             Unified &amp; GPU Memory Bandwidth Leaderboard
           </h2>
-          <p className="mt-1 max-w-3xl text-xs text-slate-500 sm:text-sm dark:text-slate-400">
-            LLM token generation scales linearly with memory bandwidth (<code className="font-mono-num text-slate-700 dark:text-slate-300">GB/s ÷ active weights</code>), while memory capacity dictates maximum model size. Compare how <strong>Apple</strong>, <strong>NVIDIA</strong>, and <strong>AMD</strong> balance unified pools vs. discrete GDDR buses.
+          <p className="mt-1 max-w-3xl text-xs text-slate-600 sm:text-sm dark:text-slate-400">
+            LLM token generation scales linearly with memory bandwidth (<code className="font-mono-num text-slate-800 dark:text-slate-300">GB/s ÷ active weights</code>), while memory capacity dictates maximum model size. Compare how <strong>Apple</strong>, <strong>NVIDIA</strong>, and <strong>AMD</strong> balance unified pools vs. discrete GDDR buses.
           </p>
         </div>
 
         {/* Simulated LLM Workload Picker */}
-        <div className="rounded-xl border border-slate-200/80 bg-white/70 p-2 shadow-2xs backdrop-blur-sm dark:border-slate-800/80 dark:bg-[#121620]/70">
+        <div className="rounded-xl border border-slate-200/80 bg-white/70 p-2 shadow-2xs backdrop-blur-sm dark:border-slate-800/80 dark:bg-[#11151f]/70">
           <div className="mb-1.5 flex items-center justify-between gap-3 px-1">
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:text-slate-400">
               <Zap className="h-3 w-3 text-teal-500" />
               Simulate Decode Speed
             </span>
@@ -224,6 +226,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                 <button
                   key={wl.id}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => setSelectedWorkloadId(wl.id)}
                   className={`rounded-lg px-2.5 py-1 font-mono-num text-[11px] font-medium transition-all ${
                     active
@@ -242,7 +245,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
       {/* 3-Vendor Architecture Breakdown Cards (Apple vs NVIDIA vs AMD) */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Apple Card */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#121620]">
+        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#11151f]">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-indigo-500" />
@@ -256,18 +259,18 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 font-mono-num dark:bg-slate-900/70">
             <div>
-              <div className="text-[10px] text-slate-400">Peak Unified BW</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Peak Unified BW</div>
               <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
                 1,228 GB/s
               </div>
-              <div className="text-[10px] text-slate-500">M5 Ultra (1024-bit)</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">M5 Ultra (1024-bit)</div>
             </div>
             <div>
-              <div className="text-[10px] text-slate-400">Max Local Pool</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Max Local Pool</div>
               <div className="text-sm font-bold text-slate-900 dark:text-white">
                 512 GB
               </div>
-              <div className="text-[10px] text-slate-500">~448 GB GPU-wired</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">~448 GB GPU-wired</div>
             </div>
           </div>
           <p className="mt-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
@@ -276,7 +279,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
         </div>
 
         {/* NVIDIA Card */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#121620]">
+        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#11151f]">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-500" />
@@ -290,18 +293,18 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 font-mono-num dark:bg-slate-900/70">
             <div>
-              <div className="text-[10px] text-slate-400">Discrete / Unified</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Discrete / Unified</div>
               <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
                 1,792 / 273 GB/s
               </div>
-              <div className="text-[10px] text-slate-500">RTX 5090 vs GB10</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">RTX 5090 vs GB10</div>
             </div>
             <div>
-              <div className="text-[10px] text-slate-400">Max Local Pool</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Max Local Pool</div>
               <div className="text-sm font-bold text-slate-900 dark:text-white">
                 96G VRAM / 128G UMA
               </div>
-              <div className="text-[10px] text-slate-500">PRO 6000 / DGX Spark</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">PRO 6000 / DGX Spark</div>
             </div>
           </div>
           <p className="mt-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
@@ -310,7 +313,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
         </div>
 
         {/* AMD Card */}
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#121620]">
+        <div className="rounded-2xl border border-slate-200/90 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-[#11151f]">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
@@ -324,18 +327,18 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-2.5 font-mono-num dark:bg-slate-900/70">
             <div>
-              <div className="text-[10px] text-slate-400">Discrete / Unified</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Discrete / Unified</div>
               <div className="text-sm font-bold text-rose-600 dark:text-rose-400">
                 960 / 256 GB/s
               </div>
-              <div className="text-[10px] text-slate-500">7900 XTX vs Strix Halo</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">7900 XTX vs Strix Halo</div>
             </div>
             <div>
-              <div className="text-[10px] text-slate-400">Max Local Pool</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">Max Local Pool</div>
               <div className="text-sm font-bold text-slate-900 dark:text-white">
                 48G VRAM / 128G UMA
               </div>
-              <div className="text-[10px] text-slate-500">W7900 / AI Max+ 395</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400">W7900 / AI Max+ 395</div>
             </div>
           </div>
           <p className="mt-2.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
@@ -345,13 +348,14 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
       </div>
 
       {/* Main Leaderboard Card */}
-      <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-2xs dark:border-slate-800/80 dark:bg-[#121620]">
+      <div className="overflow-hidden rounded-xl border border-slate-200/80 bg-white shadow-2xs dark:border-slate-800/80 dark:bg-[#11151f]">
         {/* Filter Bar */}
         <div className="flex flex-col justify-between gap-3 border-b border-slate-200/70 bg-slate-50/50 px-5 py-3 sm:flex-row sm:items-center dark:border-slate-800/70 dark:bg-[#0c0f16]">
           {/* Architecture Mode Tabs */}
           <div className="inline-flex flex-wrap items-center gap-1 rounded-lg border border-slate-200/80 bg-white/60 p-0.5 dark:border-slate-800/80 dark:bg-slate-900/50">
             <button
               type="button"
+              aria-pressed={archFilter === 'all'}
               onClick={() => setArchFilter('all')}
               className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
                 archFilter === 'all'
@@ -364,6 +368,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
             </button>
             <button
               type="button"
+              aria-pressed={archFilter === 'Unified Memory'}
               onClick={() => setArchFilter('Unified Memory')}
               className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
                 archFilter === 'Unified Memory'
@@ -376,6 +381,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
             </button>
             <button
               type="button"
+              aria-pressed={archFilter === 'Discrete VRAM'}
               onClick={() => setArchFilter('Discrete VRAM')}
               className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
                 archFilter === 'Discrete VRAM'
@@ -396,6 +402,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                 <button
                   key={v}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => setVendorFilter(v)}
                   className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-all duration-150 ${
                     active
@@ -414,13 +421,13 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto locai-scrollbar">
           <table className="w-full min-w-[920px] border-collapse text-left">
             <thead>
-              <tr className="border-b border-slate-200/70 bg-slate-50/50 text-[10px] font-semibold tracking-wider text-slate-400 uppercase dark:border-slate-800/70 dark:bg-[#0c0f16]">
+              <tr className="border-b border-slate-200/70 bg-slate-50/50 text-[10px] font-semibold tracking-wider text-slate-500 uppercase dark:border-slate-800/70 dark:bg-[#0c0f16] dark:text-slate-400">
                 <th className="w-12 px-4 py-3 text-center">#</th>
                 <th className="px-4 py-3">Hardware &amp; Memory Type</th>
-                <th className="px-3 py-3">
+                <th className="px-3 py-3" aria-sort={getAriaSort('memory')}>
                   <button
                     type="button"
                     onClick={() => handleSort('memory')}
@@ -429,7 +436,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                     Max Usable Pool {renderSortIcon('memory')}
                   </button>
                 </th>
-                <th className="px-3 py-3">
+                <th className="px-3 py-3" aria-sort={getAriaSort('bus')}>
                   <button
                     type="button"
                     onClick={() => handleSort('bus')}
@@ -438,7 +445,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                     Bus Width {renderSortIcon('bus')}
                   </button>
                 </th>
-                <th className="w-[320px] px-4 py-3">
+                <th className="w-[320px] px-4 py-3" aria-sort={getAriaSort('bandwidth')}>
                   <button
                     type="button"
                     onClick={() => handleSort('bandwidth')}
@@ -447,7 +454,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                     Memory Bandwidth (GB/s) {renderSortIcon('bandwidth')}
                   </button>
                 </th>
-                <th className="px-3 py-3">
+                <th className="px-3 py-3" aria-sort={getAriaSort('tdp')}>
                   <button
                     type="button"
                     onClick={() => handleSort('tdp')}
@@ -456,7 +463,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                     Power {renderSortIcon('tdp')}
                   </button>
                 </th>
-                <th className="px-4 py-3 text-right">
+                <th className="px-4 py-3 text-right" aria-sort={getAriaSort('toks')}>
                   <button
                     type="button"
                     onClick={() => handleSort('toks')}
@@ -484,7 +491,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                     className="transition-colors hover:bg-slate-50/70 dark:hover:bg-slate-800/35"
                   >
                     {/* Rank */}
-                    <td className="px-4 py-3 text-center font-mono-num text-xs font-semibold text-slate-400">
+                    <td className="px-4 py-3 text-center font-mono-num text-xs font-semibold text-slate-500 dark:text-slate-400">
                       {idx + 1}
                     </td>
 
@@ -507,7 +514,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                               {entry.name}
                             </span>
                             <span
-                              className={`rounded border px-1.5 py-0.2 text-[10px] font-medium ${
+                              className={`rounded border px-1.5 py-0.5 text-[10px] font-medium ${
                                 isUnified
                                   ? 'border-teal-500/25 bg-teal-500/10 text-teal-800 dark:text-teal-300'
                                   : 'border-slate-200 bg-slate-100/70 text-slate-600 dark:border-slate-800 dark:bg-slate-800/70 dark:text-slate-300'
@@ -516,7 +523,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                               {entry.architecture}
                             </span>
                           </div>
-                          <p className="mt-0.5 max-w-md text-[11px] leading-snug text-slate-400 dark:text-slate-400">
+                          <p className="mt-0.5 max-w-md text-[11px] leading-snug text-slate-500 dark:text-slate-400">
                             {entry.notes}
                           </p>
                         </div>
@@ -528,12 +535,12 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                       <div className="font-mono-num text-xs font-bold text-slate-900 dark:text-white">
                         {entry.usableVramGb} GB{' '}
                         {entry.usableVramGb < entry.maxMemoryGb && (
-                          <span className="font-normal text-slate-400">
+                          <span className="font-normal text-slate-500 dark:text-slate-400">
                             / {entry.maxMemoryGb}G
                           </span>
                         )}
                       </div>
-                      <div className="mt-0.5 text-[11px] text-slate-400">
+                      <div className="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">
                         {entry.memoryType}
                       </div>
                     </td>
@@ -543,7 +550,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                       <span className="font-mono-num text-xs font-semibold text-slate-800 dark:text-slate-200">
                         {entry.busWidthBits}-bit
                       </span>
-                      <div className="mt-0.5 text-[10px] text-slate-400">
+                      <div className="mt-0.5 text-[10px] text-slate-500 dark:text-slate-400">
                         {entry.formFactor}
                       </div>
                     </td>
@@ -553,10 +560,10 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                       <div className="flex items-baseline justify-between gap-2">
                         <span className="font-mono-num text-xs font-bold text-slate-950 dark:text-white">
                           {entry.bandwidthGbS.toLocaleString()}{' '}
-                          <span className="text-[10px] font-normal text-slate-400">GB/s</span>
+                          <span className="text-[10px] font-normal text-slate-500 dark:text-slate-400">GB/s</span>
                         </span>
                         <span
-                          className={`rounded border px-1.5 py-0.2 font-mono-num text-[10px] font-medium ${style.badge}`}
+                          className={`rounded border px-1.5 py-0.5 font-mono-num text-[10px] font-medium ${style.badge}`}
                         >
                           {entry.vendor}
                         </span>
@@ -574,7 +581,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                       <div className="font-mono-num text-xs font-semibold text-slate-800 dark:text-slate-200">
                         {entry.tdpWatts}W
                       </div>
-                      <div className="mt-0.5 font-mono-num text-[10px] text-slate-400">
+                      <div className="mt-0.5 font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
                         {gbPerSecPer100W} GB/s/100W
                       </div>
                     </td>
@@ -586,7 +593,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                           <span className="inline-flex items-center gap-1 rounded-lg bg-teal-500/12 px-2.5 py-1 font-mono-num text-xs font-bold text-teal-800 dark:text-teal-300">
                             <Zap className="h-3 w-3" />~{estTokS} tok/s
                           </span>
-                          <span className="mt-0.5 font-mono-num text-[10px] text-slate-400">
+                          <span className="mt-0.5 font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
                             {Math.round((activeWorkload.requiredGb / entry.usableVramGb) * 100)}% mem used
                           </span>
                         </div>
@@ -595,7 +602,7 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
                           <span className="rounded-lg bg-rose-500/12 px-2.5 py-1 font-mono-num text-[11px] font-semibold text-rose-700 dark:text-rose-300">
                             VRAM OOM
                           </span>
-                          <span className="mt-0.5 font-mono-num text-[10px] text-slate-400">
+                          <span className="mt-0.5 font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
                             Needs {activeWorkload.requiredGb}G &gt; {entry.usableVramGb}G
                           </span>
                         </div>
@@ -609,11 +616,11 @@ export const BandwidthLeaderboard: React.FC<BandwidthLeaderboardProps> = ({ entr
         </div>
 
         {/* Footer Legend */}
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50/50 px-5 py-2.5 text-[11px] text-slate-500 dark:border-slate-800 dark:bg-slate-900/30 dark:text-slate-400">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 bg-slate-50/50 px-5 py-2.5 text-[11px] text-slate-600 dark:border-slate-800 dark:bg-slate-900/30 dark:text-slate-400">
           <span>
             <strong>Why Unified Memory differs:</strong> Apple scales unified LPDDR5X width up to 1024-bit (<code className="font-mono-num">1,228 GB/s</code>), whereas current x86/ARM unified APUs (<code className="font-mono-num">Strix Halo</code>, <code className="font-mono-num">DGX Spark</code>) use 256-bit buses (<code className="font-mono-num">256–273 GB/s</code>).
           </span>
-          <span className="font-mono-num text-[10px] text-slate-400">
+          <span className="font-mono-num text-[10px] text-slate-500 dark:text-slate-400">
             Source file: src/data/bandwidth.json
           </span>
         </div>

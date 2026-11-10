@@ -176,6 +176,17 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
+    const isAnyModalOpen = Boolean(inspectedModel) || compareModalOpen || feedbackOpen;
+    if (isAnyModalOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [inspectedModel, compareModalOpen, feedbackOpen]);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const tag = document.activeElement?.tagName;
       if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
@@ -233,7 +244,7 @@ export const App: React.FC = () => {
   }, [selectedCompareIds, selectedQuant, contextK, kvQuantQ8, selectedGpu]);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-slate-900 transition-colors dark:bg-[#090c12] dark:text-slate-100">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 transition-colors dark:bg-[#090b10] dark:text-slate-100">
       <Navbar
         darkMode={darkMode}
         onToggleDarkMode={() => setDarkMode((d) => !d)}

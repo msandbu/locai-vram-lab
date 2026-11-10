@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 VRAM LAB
               </span>
             </div>
-            <span className="hidden text-[10px] text-slate-400 sm:block">
+            <span className="hidden text-[10px] text-slate-500 sm:block dark:text-slate-400">
               Local Model Sizing &amp; Benchmarks
             </span>
           </div>
@@ -73,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-slate-600 transition hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
               >
                 <span>Model Matrix</span>
-                <span className="rounded bg-slate-200/80 px-1.5 py-0.2 font-mono-num text-[10px] font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                <span className="rounded bg-slate-200/80 px-1.5 py-0.5 font-mono-num text-[10px] font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                   {modelCount}
                 </span>
               </a>
@@ -117,6 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 type="button"
+                aria-current="page"
                 className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-semibold text-teal-700 shadow-2xs dark:bg-slate-800 dark:text-teal-300"
               >
                 <Server className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
@@ -151,6 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 type="button"
+                aria-current="page"
                 className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-semibold text-teal-700 shadow-2xs dark:bg-slate-800 dark:text-teal-300"
               >
                 <BookOpen className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
@@ -208,6 +210,76 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Strip */}
+      <nav
+        aria-label="Mobile sections"
+        className="flex items-center gap-1.5 overflow-x-auto border-t border-slate-200/60 bg-slate-50/70 px-4 py-2 text-xs font-medium md:hidden no-scrollbar dark:border-slate-800/60 dark:bg-[#0d111a]/80"
+      >
+        <button
+          type="button"
+          onClick={() => onNavigate('workbench')}
+          aria-current={currentPage === 'workbench' ? 'page' : undefined}
+          className={`shrink-0 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 transition ${
+            currentPage === 'workbench'
+              ? 'bg-teal-600 font-semibold text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
+              : 'text-slate-600 hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800'
+          }`}
+        >
+          <Cpu className="h-3.5 w-3.5" />
+          <span>GPU Workbench</span>
+        </button>
+        {currentPage === 'workbench' && (
+          <>
+            <a
+              href="#models"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('workbench', 'models');
+              }}
+              className="shrink-0 inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-slate-600 transition hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              <span>Matrix ({modelCount})</span>
+            </a>
+            <a
+              href="#bandwidth"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('workbench', 'bandwidth');
+              }}
+              className="shrink-0 rounded-lg px-2.5 py-1 text-slate-600 transition hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              <span>Bandwidth</span>
+            </a>
+          </>
+        )}
+        <button
+          type="button"
+          onClick={() => onNavigate('hosting')}
+          aria-current={currentPage === 'hosting' ? 'page' : undefined}
+          className={`shrink-0 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 transition ${
+            currentPage === 'hosting'
+              ? 'bg-teal-600 font-semibold text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
+              : 'text-slate-600 hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800'
+          }`}
+        >
+          <Server className="h-3.5 w-3.5" />
+          <span>Host LLMs</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => onNavigate('guide')}
+          aria-current={currentPage === 'guide' ? 'page' : undefined}
+          className={`shrink-0 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 transition ${
+            currentPage === 'guide'
+              ? 'bg-teal-600 font-semibold text-white shadow-2xs dark:bg-teal-500 dark:text-slate-950'
+              : 'text-slate-600 hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800'
+          }`}
+        >
+          <BookOpen className="h-3.5 w-3.5" />
+          <span>Guides &amp; FAQ</span>
+        </button>
+      </nav>
     </header>
   );
 };

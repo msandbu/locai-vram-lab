@@ -44,6 +44,13 @@ export function formatParamsB(paramsB: number): string {
   return `${paramsB}B`;
 }
 
+export function getCreatorInitials(creator: string): string {
+  const clean = creator.replace(/[^a-zA-Z0-9 ]/g, '').trim();
+  const parts = clean.split(/\s+/);
+  if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+  return clean.slice(0, 2).toUpperCase();
+}
+
 export function getEstimatedUsableVram(gpu: GpuPreset): {
   physicalGb: number;
   systemReserveGb: number;
