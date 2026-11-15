@@ -42,15 +42,7 @@ const GPU_TIER_LINES = [8, 16, 24, 64, 128, 256, 1024];
 
 function getShortChartLabel(name: string): string {
   return name
-    .replace(' (Frontier Reference)', '')
-    .replace(' (Reasoning)', '')
-    .replace(' (Xhigh)', '')
-    .replace(' (Max)', '')
-    .replace(' (594B-A17B)', '')
-    .replace(' (320B-A18B)', '')
-    .replace(' (753B-A40B)', '')
-    .replace(' (1.05T-A52B)', '')
-    .replace(' (2.8T-A104B)', '')
+    .replace(/\s*\([^)]*\)/g, '')
     .replace('-Flash-RL', ' Flash')
     .replace('-Instruct', '');
 }

@@ -349,10 +349,10 @@
   },
   {
     "id": "qwen3-8-27b",
-    "name": "Qwen3.8 27B (Xhigh)",
+    "name": "Qwen 3.8 27B (Xhigh)",
     "creator": "Alibaba",
     "creatorColor": "#ff7018",
-    "releaseDate": "2026-09",
+    "releaseDate": "2026-08",
     "license": "Apache 2.0",
     "licensePermissive": true,
     "architecture": "Dense",
@@ -385,7 +385,44 @@
       "huggingFace": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
     },
     "runCommand": "llama-server -hf unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_XL -c 32768",
-    "notes": "Single-24GB GPU champion. Unsloth UD-Q4_K_XL weights take ~16.8 GB, fitting RTX 3090/4090 cleanly with 32K–64K context."
+    "notes": "Single-24GB GPU champion (Qwen3.8 27B hybrid Gated DeltaNet + attention). Unsloth UD-Q4_K_XL weights take ~16.8 GB, fitting RTX 3090/4090 cleanly with 32K–64K context."
+  },
+  {
+    "id": "bonsai-27b",
+    "name": "Bonsai 27B (Ternary / 1-Bit)",
+    "creator": "PrismML",
+    "creatorColor": "#16a34a",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 27.8,
+    "activeParamsB": 27.8,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 262,
+    "intelligenceScore": 18,
+    "codingScore": 78,
+    "codingBreakdown": {
+      "liveCodeBench": 73,
+      "sweBenchVerified": 62,
+      "aiderPolyglot": 74
+    },
+    "recommendedQuant": "Ternary 1.7b (~5.9G) / 1-Bit (~3.9G)",
+    "weightsGbByQuant": {
+      "q2": 5.9,
+      "q3": 8.6,
+      "q4": 14.8,
+      "q6": 22.4,
+      "q8": 29.2,
+      "bf16": 55.6
+    },
+    "kvPer32kGb": 2.2,
+    "sources": {
+      "huggingFace": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf"
+    },
+    "runCommand": "llama-server -hf prism-ml/Ternary-Bonsai-2-27B-gguf -c 32768",
+    "notes": "PrismML's Hadamard-rotated ternary/1-bit compressed 27.8B model (derived from Qwen 3.6/3.8 27B). Packs a 27B reasoning model into ~5.9 GB (ternary) or ~3.9 GB (1-bit)—running a 27B-class model on 8GB–12GB laptops and consumer GPUs while retaining ~95% reasoning quality."
   },
   {
     "id": "glm-4-7-flash-30b",
@@ -1008,6 +1045,46 @@
     "notes": "Sweet-spot prosumer workstation king: fits 96GB RTX PRO 6000 or 128GB Mac Studio / Strix Halo at Q4 with near-frontier coding."
   },
   {
+    "id": "qwen3-8-flash-next",
+    "name": "Qwen 3.8 Flash Next (176B-A6B)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-08",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 176.0,
+    "activeParamsB": 6.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 29,
+    "codingScore": 90,
+    "codingBreakdown": {
+      "aaCodingIndex": 89,
+      "liveCodeBench": 87,
+      "sweBenchVerified": 78,
+      "aiderPolyglot": 88
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 62.0,
+      "q3": 81.0,
+      "q4": 101.0,
+      "q6": 144.0,
+      "q8": 186.0,
+      "bf16": 352.0
+    },
+    "kvPer32kGb": 1.3,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/qwen3-8-flash-next",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.8-Flash-Next-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Qwen3.8-Flash-Next combines 125B MoE weights + 51B N-gram embedding lookup with only 6B active parameters per token! Fits 128GB Unified Memory (Mac Studio / Strix Halo / DGX Spark) at full 4-bit (~101 GB) with blazing decode speed."
+  },
+  {
     "id": "mimo-v2-6-flash",
     "name": "MiMo-V2.6-Flash 309B",
     "creator": "Xiaomi",
@@ -1552,6 +1629,46 @@
     },
     "runCommand": "vllm serve mistralai/Mistral-Large-4 --tensor-parallel-size 8 --quantization fp8",
     "notes": "Mistral Large 4 ('Le Chonk') 1.05T multimodal MoE (52B active, 1.6B vision encoder, 1M context, Apache 2.0). Scores 38 on AA Intelligence Index and 51 on AA Cyber Index; fits 512GB Mac Studio Ultra at Q2/Q3 or multi-GPU FP8 cluster."
+  },
+  {
+    "id": "qwen3-8-max",
+    "name": "Qwen 3.8 Max (2.4T-A95B)",
+    "creator": "Alibaba",
+    "creatorColor": "#ff7018",
+    "releaseDate": "2026-09",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 2400.0,
+    "activeParamsB": 95.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 34,
+    "codingScore": 94,
+    "codingBreakdown": {
+      "aaCodingIndex": 93,
+      "liveCodeBench": 92,
+      "sweBenchVerified": 84,
+      "aiderPolyglot": 92
+    },
+    "recommendedQuant": "UD-IQ1_M (~510G) / FP8 Cluster",
+    "weightsGbByQuant": {
+      "q2": 650.0,
+      "q3": 960.0,
+      "q4": 1340.0,
+      "q6": 1920.0,
+      "q8": 2510.0,
+      "bf16": 4800.0
+    },
+    "kvPer32kGb": 2.9,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/qwen3-8-max",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/Qwen"
+    },
+    "runCommand": "llama-server -hf unsloth/Qwen3.8-Max-GGUF:UD-IQ1_M -c 65536 -ot \".ffn_.*_exps.=CPU\"",
+    "notes": "Alibaba's 2.4T sparse MoE flagship (Qwen3.8 Max, 95B active, ~1M context). Scores 34 on AA Intelligence Index; requires 512GB+ Unified Memory at 1.5-bit (~510 GB) or multi-node GPU/CPU-offload server."
   },
   {
     "id": "kimi-k3",
