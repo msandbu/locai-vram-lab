@@ -115,6 +115,45 @@
     "notes": "Punchiest sub-4B coding and math assistant; fits comfortably in 6GB–8GB VRAM even at near-lossless 6-bit or 8-bit."
   },
   {
+    "id": "nemotron-3-5-bolt-e4b",
+    "name": "Nemotron 3.5 Bolt E4B",
+    "creator": "NVIDIA",
+    "creatorColor": "#76b900",
+    "releaseDate": "2026-10",
+    "license": "NVIDIA Open",
+    "licensePermissive": true,
+    "architecture": "Dense",
+    "totalParamsB": 4.5,
+    "activeParamsB": 4.5,
+    "sizeTier": "tiny",
+    "reasoning": true,
+    "contextWindowK": 66,
+    "intelligenceScore": 8,
+    "codingScore": 56,
+    "codingBreakdown": {
+      "liveCodeBench": 50,
+      "sweBenchVerified": 38,
+      "aiderPolyglot": 49
+    },
+    "recommendedQuant": "UD-Q6_K_XL",
+    "weightsGbByQuant": {
+      "q2": 1.8,
+      "q3": 2.3,
+      "q4": 2.9,
+      "q6": 3.8,
+      "q8": 4.8,
+      "bf16": 9.0
+    },
+    "kvPer32kGb": 0.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/tiny",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/nvidia"
+    },
+    "runCommand": "llama-server -hf unsloth/Nemotron-3.5-Bolt-E4B-GGUF:UD-Q6_K_XL -c 32768",
+    "notes": "NVIDIA's compact Nemotron 3.5 edge agent (E4B, 66K context); purpose-tuned for low-latency local tool calling on 6GB–8GB GPUs."
+  },
+  {
     "id": "qwen3-8b",
     "name": "Qwen3 8B (Reasoning)",
     "creator": "Alibaba",
@@ -656,6 +695,46 @@
     "notes": "Classic dense 70B baseline for dual-24GB (48GB) rigs and 64GB Macs, though newer 27B–35B reasoning models beat it in half the VRAM."
   },
   {
+    "id": "nemotron-3-5-bolt-74b",
+    "name": "Nemotron 3.5 Bolt 74B-A9B",
+    "creator": "NVIDIA",
+    "creatorColor": "#76b900",
+    "releaseDate": "2026-10",
+    "license": "NVIDIA Open",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 74.0,
+    "activeParamsB": 9.0,
+    "sizeTier": "medium",
+    "reasoning": true,
+    "contextWindowK": 256,
+    "intelligenceScore": 21,
+    "codingScore": 83,
+    "codingBreakdown": {
+      "aaCodingIndex": 81,
+      "liveCodeBench": 78,
+      "sweBenchVerified": 69,
+      "aiderPolyglot": 80
+    },
+    "recommendedQuant": "UD-Q4_K_XL / NVFP4",
+    "weightsGbByQuant": {
+      "q2": 27.5,
+      "q3": 35.2,
+      "q4": 43.2,
+      "q6": 61.0,
+      "q8": 79.0,
+      "bf16": 148.0
+    },
+    "kvPer32kGb": 1.3,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/open-source/medium",
+      "unsloth": "https://huggingface.co/unsloth",
+      "huggingFace": "https://huggingface.co/nvidia"
+    },
+    "runCommand": "llama-server -hf unsloth/Nemotron-3.5-Bolt-74B-A9B-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Hybrid Mamba-Transformer multimodal MoE (74B total / 9B active). Fits 48GB–64GB rigs at Q4 (~43.2 GB) or 24GB–32GB GPUs at NVFP4/Q2 with fast agentic tool execution."
+  },
+  {
     "id": "qwen3-next-80b-a3b",
     "name": "Qwen3 Next 80B-A3B",
     "creator": "Alibaba",
@@ -813,7 +892,7 @@
   },
   {
     "id": "nemotron-3-5-super-vl",
-    "name": "Nemotron 3.5 Super VL 120B",
+    "name": "Nemotron 3.5 Super VL 120B-A12B",
     "creator": "NVIDIA",
     "creatorColor": "#76b900",
     "releaseDate": "2026-09",
@@ -825,14 +904,15 @@
     "sizeTier": "medium",
     "reasoning": true,
     "contextWindowK": 1000,
-    "intelligenceScore": 19,
-    "codingScore": 82,
+    "intelligenceScore": 26,
+    "codingScore": 86,
     "codingBreakdown": {
-      "liveCodeBench": 77,
-      "sweBenchVerified": 67,
-      "aiderPolyglot": 79
+      "aaCodingIndex": 85,
+      "liveCodeBench": 82,
+      "sweBenchVerified": 73,
+      "aiderPolyglot": 83
     },
-    "recommendedQuant": "UD-Q4_K_XL",
+    "recommendedQuant": "UD-Q4_K_XL / NVFP4",
     "weightsGbByQuant": {
       "q2": 45.0,
       "q3": 57.2,
@@ -847,7 +927,7 @@
       "huggingFace": "https://huggingface.co/nvidia"
     },
     "runCommand": "llama-server -hf unsloth/Nemotron-3.5-Super-VL-GGUF:UD-Q4_K_XL -c 65536",
-    "notes": "Top Medium-tier multimodal & agentic MoE (120B total / 12B active) with 1M context window; prime target for 96GB–128GB workstations."
+    "notes": "NVIDIA's flagship Nemotron 3.5 multimodal & agentic MoE (120B total / 12B active) with 1M context window and up to 5x higher agentic throughput; prime target for 96GB–128GB workstations."
   },
   {
     "id": "devstral-2-123b",
@@ -1005,6 +1085,46 @@
     "notes": "Reinforcement-learning tuned version of MiMo-V2.6 (GRPO agentic training) with 15B active weights, 1M context, and boosted coding & reasoning retention."
   },
   {
+    "id": "glm-5-3-flash",
+    "name": "GLM 5.3 Flash (320B-A18B)",
+    "creator": "Z.ai",
+    "creatorColor": "#7c3aed",
+    "releaseDate": "2026-10",
+    "license": "MIT",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 320.0,
+    "activeParamsB": 18.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 28,
+    "codingScore": 90,
+    "codingBreakdown": {
+      "aaCodingIndex": 89,
+      "liveCodeBench": 87,
+      "sweBenchVerified": 79,
+      "aiderPolyglot": 88
+    },
+    "recommendedQuant": "UD-IQ3_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 106.0,
+      "q3": 145.0,
+      "q4": 184.0,
+      "q6": 262.0,
+      "q8": 340.0,
+      "bf16": 640.0
+    },
+    "kvPer32kGb": 1.6,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/glm-5-3-flash",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/zai-org"
+    },
+    "runCommand": "llama-server -hf unsloth/GLM-5.3-Flash-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Z.ai's 320B multimodal hybrid sparse/linear-attention MoE (GLM-5.3-Flash, 18B active, 1M context). Fits a 256GB Mac Studio at full 4-bit (~184 GB) or 128GB workstation at 2-bit (~106 GB)."
+  },
+  {
     "id": "k2-horizon-375b",
     "name": "K2 Horizon 375B-A23B",
     "creator": "IFM",
@@ -1159,6 +1279,46 @@
     "notes": "560B MoE (25B active) with 1M context window; fits 256GB Mac Studio at dynamic 2-bit (~182 GB)."
   },
   {
+    "id": "inkling-2-small",
+    "name": "Inkling 2 Small (594B-A17B)",
+    "creator": "Thinking Machines",
+    "creatorColor": "#0d9488",
+    "releaseDate": "2026-10",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 594.0,
+    "activeParamsB": 17.0,
+    "sizeTier": "large",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 31,
+    "codingScore": 92,
+    "codingBreakdown": {
+      "aaCodingIndex": 91,
+      "liveCodeBench": 89,
+      "sweBenchVerified": 81,
+      "aiderPolyglot": 90
+    },
+    "recommendedQuant": "UD-IQ2_M / UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 192.0,
+      "q3": 264.0,
+      "q4": 340.0,
+      "q6": 482.0,
+      "q8": 628.0,
+      "bf16": 1188.0
+    },
+    "kvPer32kGb": 1.8,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/inkling-2-small",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/thinkingmachines"
+    },
+    "runCommand": "llama-server -hf unsloth/Inkling-2-Small-GGUF:UD-IQ2_M -c 65536",
+    "notes": "Thinking Machines Lab's 594B multimodal MoE (only 17B active per token, 1M context, Apache 2.0). Scores 31 on AA Intelligence Index and fits a 256GB Mac Studio at UD-IQ2_M (~192 GB) or 512GB Ultra at Q4 (~340 GB)."
+  },
+  {
     "id": "step-5-preview",
     "name": "Step 5 Preview 600B",
     "creator": "StepFun",
@@ -1198,7 +1358,7 @@
   },
   {
     "id": "glm-5-3-max",
-    "name": "GLM-5.3 (Max)",
+    "name": "GLM 5.3 (753B-A40B)",
     "creator": "Z.ai",
     "creatorColor": "#7c3aed",
     "releaseDate": "2026-10",
@@ -1234,7 +1394,7 @@
       "huggingFace": "https://huggingface.co/zai-org"
     },
     "runCommand": "llama-server -hf unsloth/GLM-5.3-GGUF:UD-IQ2_M -c 32768 -ctk q8_0 -ctv q8_0",
-    "notes": "Unsloth Dynamic 2-bit (UD-IQ2_M ~239 GB) squeezes onto a 256GB Mac Studio or 24GB GPU + 256GB DDR5 rig; 4-bit needs 512GB."
+    "notes": "Z.ai's flagship GLM-5.3 Max (753B total / 40B active, 1M context). Unsloth Dynamic 2-bit (UD-IQ2_M ~239 GB) squeezes onto a 256GB Mac Studio or 24GB GPU + 256GB DDR5 rig; 4-bit needs 512GB."
   },
   {
     "id": "muse-spark-open",
@@ -1355,42 +1515,43 @@
   },
   {
     "id": "mistral-large-4",
-    "name": "Mistral Large 4 (1.1T)",
+    "name": "Mistral 4 Large (1.05T-A52B)",
     "creator": "Mistral",
     "creatorColor": "#fa520f",
     "releaseDate": "2026-09",
-    "license": "Mistral Research / Open",
-    "licensePermissive": false,
+    "license": "Apache 2.0",
+    "licensePermissive": true,
     "architecture": "MoE",
-    "totalParamsB": 1100.0,
+    "totalParamsB": 1050.0,
     "activeParamsB": 52.0,
     "sizeTier": "large",
     "reasoning": true,
     "contextWindowK": 1000,
-    "intelligenceScore": 26,
-    "codingScore": 88,
+    "intelligenceScore": 38,
+    "codingScore": 92,
     "codingBreakdown": {
-      "aaCodingIndex": 87,
-      "liveCodeBench": 84,
-      "sweBenchVerified": 76,
-      "aiderPolyglot": 86
+      "aaCodingIndex": 91,
+      "liveCodeBench": 89,
+      "sweBenchVerified": 81,
+      "aiderPolyglot": 90
     },
     "recommendedQuant": "UD-IQ2_M / FP8 Cluster",
     "weightsGbByQuant": {
-      "q2": 345.0,
-      "q3": 475.0,
-      "q4": 615.0,
-      "q6": 875.0,
-      "q8": 1155.0,
-      "bf16": 2200.0
+      "q2": 335.0,
+      "q3": 460.0,
+      "q4": 595.0,
+      "q6": 845.0,
+      "q8": 1110.0,
+      "bf16": 2100.0
     },
-    "kvPer32kGb": 3.8,
+    "kvPer32kGb": 3.6,
     "sources": {
       "artificialAnalysis": "https://artificialanalysis.ai/models/open-source",
+      "unsloth": "https://docs.unsloth.ai/",
       "huggingFace": "https://huggingface.co/mistralai"
     },
     "runCommand": "vllm serve mistralai/Mistral-Large-4 --tensor-parallel-size 8 --quantization fp8",
-    "notes": "1.1T frontier MoE reference point—requires 512GB Mac Studio Ultra (at 2–3 bit) or multi-GPU enterprise cluster."
+    "notes": "Mistral Large 4 ('Le Chonk') 1.05T multimodal MoE (52B active, 1.6B vision encoder, 1M context, Apache 2.0). Scores 38 on AA Intelligence Index and 51 on AA Cyber Index; fits 512GB Mac Studio Ultra at Q2/Q3 or multi-GPU FP8 cluster."
   },
   {
     "id": "kimi-k3",

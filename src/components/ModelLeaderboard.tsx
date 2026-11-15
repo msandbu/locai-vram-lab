@@ -69,8 +69,11 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
         if (archFilter !== 'All' && model.architecture !== archFilter) return false;
         if (permissiveOnly && !model.licensePermissive) return false;
         if (q) {
-          const hay = `${model.name} ${model.creator} ${model.license} ${model.architecture} ${model.recommendedQuant}`.toLowerCase();
-          if (!hay.includes(q)) return false;
+          const hay = `${model.name} ${model.creator} ${model.license} ${model.architecture} ${model.recommendedQuant} ${model.notes ?? ''}`
+            .toLowerCase()
+            .replace(/-/g, ' ');
+          const tokens = q.replace(/-/g, ' ').split(/\s+/).filter(Boolean);
+          if (!tokens.every((tok) => hay.includes(tok))) return false;
         }
         return true;
       })
