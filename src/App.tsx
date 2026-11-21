@@ -17,7 +17,7 @@ import {
 import { estimateModelVram } from './utils/vram';
 import { Navbar } from './components/Navbar';
 import { HardwareBar } from './components/HardwareBar';
-import { BenchmarkCharts, EnrichedModel } from './components/BenchmarkCharts';
+import { BenchmarkCharts, EnrichedModel, FitFilter } from './components/BenchmarkCharts';
 import { ModelLeaderboard } from './components/ModelLeaderboard';
 import { BandwidthLeaderboard } from './components/BandwidthLeaderboard';
 import { GuidePage } from './components/GuidePage';
@@ -80,6 +80,7 @@ export const App: React.FC = () => {
   });
 
   const [tierFilter, setTierFilter] = useState<TierFilter>('all');
+  const [fitFilter, setFitFilter] = useState<FitFilter>('runnable-only');
   const [selectedGpu, setSelectedGpu] = useState<GpuPreset>(
     () => GPUS.find((g) => g.vramGb === 24) ?? GPUS[0]
   );
@@ -319,6 +320,10 @@ export const App: React.FC = () => {
                   onToggleKvQuant={() => setKvQuantQ8((v) => !v)}
                   fittingCount={fittingCount}
                   totalCount={enrichedItems.length}
+                  onlyFitsGpu={fitFilter === 'runnable-only'}
+                  onToggleOnlyFitsGpu={() =>
+                    setFitFilter((prev) => (prev === 'runnable-only' ? 'all' : 'runnable-only'))
+                  }
                 />
               </div>
             </div>
@@ -334,6 +339,8 @@ export const App: React.FC = () => {
               onSelectModel={setInspectedModel}
               selectedCompareIds={selectedCompareIds}
               onToggleCompare={toggleCompare}
+              fitFilter={fitFilter}
+              onChangeFitFilter={setFitFilter}
             />
 
             <ModelLeaderboard
@@ -346,6 +353,10 @@ export const App: React.FC = () => {
               onRequestMissingModel={(name) => openFeedbackModal(name ?? '')}
               selectedCompareIds={selectedCompareIds}
               onToggleCompare={toggleCompare}
+              onlyFitsGpu={fitFilter === 'runnable-only'}
+              onToggleOnlyFitsGpu={() =>
+                setFitFilter((prev) => (prev === 'runnable-only' ? 'all' : 'runnable-only'))
+              }
             />
 
             <BandwidthLeaderboard entries={BANDWIDTH_ENTRIES} />

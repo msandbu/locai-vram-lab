@@ -25,6 +25,8 @@ interface HardwareBarProps {
   fittingCount: number;
   totalCount: number;
   onResetDefaults?: () => void;
+  onlyFitsGpu?: boolean;
+  onToggleOnlyFitsGpu?: () => void;
 }
 
 const CONTEXT_OPTIONS = [8, 32, 64, 128];
@@ -43,6 +45,8 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
   fittingCount,
   totalCount,
   onResetDefaults,
+  onlyFitsGpu = true,
+  onToggleOnlyFitsGpu,
 }) => {
   const [showVramInfo, setShowVramInfo] = useState(false);
   const [showQuantInfo, setShowQuantInfo] = useState(false);
@@ -89,14 +93,34 @@ export const HardwareBar: React.FC<HardwareBarProps> = ({
         </div>
 
         {/* Telemetry & Reset Controls */}
-        <div className="flex items-center gap-3">
-          {/* Runnable Count Pill */}
-          <div className="flex items-center gap-2 rounded-lg border border-teal-500/25 bg-teal-500/10 px-2.5 py-1 text-[11px] font-semibold text-teal-800 dark:text-teal-300">
-            <span className="flex h-2 w-2 rounded-full bg-teal-500 animate-pulse" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Interactive Runnable Filter Pill */}
+          <button
+            type="button"
+            onClick={onToggleOnlyFitsGpu}
+            aria-pressed={onlyFitsGpu}
+            title={
+              onlyFitsGpu
+                ? `Showing only models that fit ${selectedGpu.shortLabel} — click to show all ${totalCount} models`
+                : `Showing all ${totalCount} models — click to filter to ${fittingCount} models fitting ${selectedGpu.shortLabel}`
+            }
+            className={`flex items-center gap-2 rounded-lg border px-2.5 py-1 text-[11px] font-semibold transition ${
+              onlyFitsGpu
+                ? 'border-teal-600 bg-teal-600 text-white shadow-2xs dark:border-teal-500 dark:bg-teal-500 dark:text-slate-950'
+                : 'border-teal-500/25 bg-teal-500/10 text-teal-800 hover:bg-teal-500/20 dark:text-teal-300'
+            }`}
+          >
+            <span
+              className={`flex h-2 w-2 rounded-full ${
+                onlyFitsGpu ? 'bg-white dark:bg-slate-950' : 'bg-teal-500 animate-pulse'
+              }`}
+            />
             <span className="font-mono-num">
-              {fittingCount}/{totalCount} runnable ({fitRatio}%)
+              {onlyFitsGpu
+                ? `Filtered: Fits ${selectedGpu.shortLabel} (${fittingCount})`
+                : `${fittingCount}/${totalCount} fit ${selectedGpu.shortLabel} (${fitRatio}%)`}
             </span>
-          </div>
+          </button>
 
           {/* Reset to Default Button */}
           <button

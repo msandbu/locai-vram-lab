@@ -29,6 +29,8 @@ interface ModelLeaderboardProps {
   onRequestMissingModel: (suggestedName?: string) => void;
   selectedCompareIds?: string[];
   onToggleCompare?: (modelId: string) => void;
+  onlyFitsGpu?: boolean;
+  onToggleOnlyFitsGpu?: () => void;
 }
 
 type SortField = 'coding' | 'intelligence' | 'vram' | 'params' | 'context' | 'speed';
@@ -44,13 +46,30 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
   onRequestMissingModel,
   selectedCompareIds = [],
   onToggleCompare,
+  onlyFitsGpu: controlledOnlyFitsGpu,
+  onToggleOnlyFitsGpu,
 }) => {
   const [query, setQuery] = useState('');
-  const [onlyFitsGpu, setOnlyFitsGpu] = useState(false);
+  const [internalOnlyFitsGpu, setInternalOnlyFitsGpu] = useState(true);
   const [archFilter, setArchFilter] = useState<'All' | ArchitectureType>('All');
   const [permissiveOnly, setPermissiveOnly] = useState(false);
   const [sortField, setSortField] = useState<SortField>('coding');
   const [sortDir, setSortDir] = useState<SortDir>('desc');
+
+  const hasAnyRunnableInItems = useMemo(
+    () => items.some((i) => i.vram.isRunnable),
+    [items]
+  );
+
+  const rawOnlyFitsGpu = controlledOnlyFitsGpu ?? internalOnlyFitsGpu;
+  const onlyFitsGpu = rawOnlyFitsGpu && hasAnyRunnableInItems;
+  const toggleOnlyFitsGpu = () => {
+    if (onToggleOnlyFitsGpu) {
+      onToggleOnlyFitsGpu();
+    } else {
+      setInternalOnlyFitsGpu((v) => !v);
+    }
+  };
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
@@ -65,7 +84,8 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
     const q = query.trim().toLowerCase();
     return items
       .filter(({ model, vram }) => {
-        if (onlyFitsGpu && !vram.isRunnable) return false;
+        // When user explicitly searches by name, search across all items; otherwise apply hardware fit filter
+        if (!q && onlyFitsGpu && !vram.isRunnable) return false;
         if (archFilter !== 'All' && model.architecture !== archFilter) return false;
         if (permissiveOnly && !model.licensePermissive) return false;
         if (q) {
@@ -108,7 +128,9 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
 
   const resetFilters = () => {
     setQuery('');
-    setOnlyFitsGpu(false);
+    if (onlyFitsGpu) {
+      toggleOnlyFitsGpu();
+    }
     setArchFilter('All');
     setPermissiveOnly(false);
   };
@@ -191,7 +213,7 @@ export const ModelLeaderboard: React.FC<ModelLeaderboardProps> = ({
           <button
             type="button"
             aria-pressed={onlyFitsGpu}
-            onClick={() => setOnlyFitsGpu((v) => !v)}
+            onClick={toggleOnlyFitsGpu}
             className={`inline-flex h-8.5 items-center gap-1.5 rounded-lg border px-3 text-xs font-medium transition-all duration-150 ${
               onlyFitsGpu
                 ? 'border-teal-600 bg-teal-600 text-white shadow-2xs dark:border-teal-500 dark:bg-teal-500 dark:text-slate-950 font-semibold'
