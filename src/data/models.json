@@ -348,6 +348,46 @@
     "notes": "Mistral's dedicated SWE-agent model (~14.3 GB Q4 file). Fits 16GB GPUs with Q3/IQ4_XS or 24GB GPUs comfortably with 32K–64K repo context."
   },
   {
+    "id": "inkling-2-mini",
+    "name": "Inkling 2 Mini (26.4B-A3.4B)",
+    "creator": "Thinking Machines",
+    "creatorColor": "#0d9488",
+    "releaseDate": "2026-10",
+    "license": "Apache 2.0",
+    "licensePermissive": true,
+    "architecture": "MoE",
+    "totalParamsB": 26.4,
+    "activeParamsB": 3.4,
+    "sizeTier": "small",
+    "reasoning": true,
+    "contextWindowK": 1000,
+    "intelligenceScore": 20,
+    "codingScore": 84,
+    "codingBreakdown": {
+      "aaCodingIndex": 83,
+      "liveCodeBench": 80,
+      "sweBenchVerified": 70,
+      "aiderPolyglot": 81
+    },
+    "recommendedQuant": "UD-Q4_K_XL",
+    "weightsGbByQuant": {
+      "q2": 9.2,
+      "q3": 11.8,
+      "q4": 15.2,
+      "q6": 21.8,
+      "q8": 28.0,
+      "bf16": 52.8
+    },
+    "kvPer32kGb": 1.1,
+    "sources": {
+      "artificialAnalysis": "https://artificialanalysis.ai/models/inkling-2-mini",
+      "unsloth": "https://docs.unsloth.ai/",
+      "huggingFace": "https://huggingface.co/thinkingmachines/Inkling-2-Mini"
+    },
+    "runCommand": "llama-server -hf unsloth/Inkling-2-Mini-GGUF:UD-Q4_K_XL -c 65536",
+    "notes": "Thinking Machines Lab's 26.4B multimodal looped-transformer MoE (3.4B unique active weights looping to 5.4B effective depth, 1M context, Apache 2.0). Scores 20 on AA Intelligence Index and fits a single 24GB GPU at Q4 (~15.2 GB) or 16GB GPU at Q3 (~11.8 GB)."
+  },
+  {
     "id": "qwen3-8-27b",
     "name": "Qwen 3.8 27B (Xhigh)",
     "creator": "Alibaba",

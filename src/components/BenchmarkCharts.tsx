@@ -248,6 +248,32 @@ export const BenchmarkCharts: React.FC<BenchmarkChartsProps> = ({
       }
     }
 
+    // Ensure spotlighted new frontier/creator models also show labels on the scatter chart
+    const spotlightLabelIds = [
+      'inkling-2-small',
+      'inkling-2-mini',
+      'glm-5-3-max',
+      'mistral-large-4',
+      'nemotron-3-5-super-vl',
+      'bonsai-27b',
+    ];
+    let spotlightStagger = 0;
+    for (const entry of filteredScatterItems) {
+      if (spotlightLabelIds.includes(entry.model.id) && !labeledIds.has(entry.model.id)) {
+        const score = yMetric === 'coding' ? entry.model.codingScore : entry.model.intelligenceScore;
+        const px = xPct(entry.vram.totalVramGb);
+        const py = yPct(score);
+        labeledIds.add(entry.model.id);
+        const placement: 'top' | 'bottom' =
+          py > 82 ? 'top' : spotlightStagger % 2 === 0 ? 'bottom' : 'top';
+        const align: 'center' | 'left' | 'right' = px > 84 ? 'right' : px < 12 ? 'left' : 'center';
+        const offsetClass =
+          placement === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-3.5';
+        spotlightStagger++;
+        labelLayout[entry.model.id] = { placement, align, offsetClass };
+      }
+    }
+
     return { xPct, yPct, paretoIds, paretoPoints, labeledIds, labelLayout };
   }, [filteredScatterItems, yMetric, bestOverallForGpu, zoomToRig, selectedGpu.vramGb]);
 
